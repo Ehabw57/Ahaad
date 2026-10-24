@@ -1,0 +1,43 @@
+---
+// CategoryPills.astro — pure static HTML, zero client JavaScript.
+// Pills are generated from CATEGORIES_LIST. Active state toggled by index.astro script.
+
+import { CATEGORIES_LIST } from '../data/categories.ts';
+import { TOOLS } from '../data/tools.ts';
+
+const totalPublished = TOOLS.filter(t => t.published).length;
+---
+
+<section id="categories" class="px-2 pt-2 pb-6">
+  <!-- Scrollable pills row -->
+  <div
+    class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1"
+    role="group"
+    aria-label="تصفية الأدوات حسب التصنيف"
+  >
+    <!-- "All" pill — active by default -->
+    <button
+      type="button"
+      class="category-btn active shrink-0 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition-colors bg-text-primary text-canvas border border-text-primary cursor-pointer"
+      data-category="all"
+    >
+      الكل
+    </button>
+
+    <!-- Category pills generated from data -->
+    {CATEGORIES_LIST.map((cat) => (
+      <button
+        type="button"
+        class="category-btn shrink-0 rounded-xl px-4 py-2 text-xs sm:text-sm font-medium transition-colors bg-canvas text-text-secondary hover:text-text-primary hover:bg-surface border border-border cursor-pointer"
+        data-category={cat.catId}
+      >
+        {cat.name}
+      </button>
+    ))}
+  </div>
+
+  <!-- Results counter bar -->
+  <div class="flex items-center justify-between text-xs text-text-secondary px-1 pt-3 pb-1">
+    <span id="resultsCount">عرض {totalPublished} أداة</span>
+  </div>
+</section>

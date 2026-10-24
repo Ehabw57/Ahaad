@@ -1,0 +1,14 @@
+---
+// Footer.astro — pure static HTML, zero client JavaScript.
+---
+
+<footer class="mt-auto border-t border-border py-7 px-4">
+  <div class="max-w-285 mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-text-secondary gap-3">
+    <p>© {new Date().getFullYear()} منصة آحاد — أدوات رقمية سريعة وخفيفة</p>
+    <nav class="flex items-center gap-6" aria-label="روابط ثانوية">
+      <a href="/privacy" class="hover:text-text-primary transition-colors">سياسة الخصوصية</a>
+      <a href="/terms" class="hover:text-text-primary transition-colors">الشروط والأحكام</a>
+      <a href="/suggest" class="hover:text-text-primary transition-colors">اقتراح أداة جديدة</a>
+    </nav>
+  </div>
+</footer>

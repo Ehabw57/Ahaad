@@ -1,0 +1,61 @@
+---
+// Header.astro — pure static HTML, zero client JavaScript.
+// Theme toggle button triggers are handled by a shared script in each page.
+import { Icon } from 'astro-icon/components';
+
+const pathname = Astro.url.pathname;
+const isAbout = pathname === '/about' || pathname === '/about/';
+const isHome = !isAbout && (pathname === '/' || pathname === '');
+---
+
+<header class="sticky top-0 z-40 bg-canvas/95 backdrop-blur-sm border-b border-border">
+  <div class="max-w-[1140px] mx-auto px-4 sm:px-8 flex items-center justify-between h-16 gap-4">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2.5 text-text-primary shrink-0" aria-label="آحاد — الرئيسية">
+      <span class="size-7 flex items-center justify-center text-text-primary">
+        <Icon name="logo" class="size-6" />
+      </span>
+      <span class="text-xl font-bold tracking-tight">آحاد</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="التنقل الرئيسي">
+      <a
+        href="/"
+        class={`text-sm transition-colors ${isHome ? 'text-text-primary font-semibold' : 'text-text-secondary hover:text-text-primary font-medium'}`}
+      >
+        الرئيسية
+      </a>
+      <a
+        href="/#categories"
+        class="text-text-secondary hover:text-text-primary text-sm font-medium transition-colors"
+      >
+        التصنيفات
+      </a>
+      <a
+        href="/about"
+        class={`text-sm transition-colors ${isAbout ? 'text-text-primary font-semibold' : 'text-text-secondary hover:text-text-primary font-medium'}`}
+      >
+        عن المنصة
+      </a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2">
+      <!-- Theme Toggle Button -->
+      <button
+        id="themeToggleBtn"
+        type="button"
+        aria-label="تغيير المظهر"
+        class="flex items-center justify-center rounded-xl size-9 bg-surface hover:bg-surface-subtle text-text-primary border border-border transition-colors cursor-pointer"
+      >
+        <!-- Moon icon — shown in light mode -->
+        <Icon name="lucide:moon" class="dark:hidden size-4.5" />
+        <!-- Sun icon — shown in dark mode -->
+        <Icon name="lucide:sun" class="hidden dark:block size-4.5" />
+      </button>
+    </div>
+
+  </div>
+</header>

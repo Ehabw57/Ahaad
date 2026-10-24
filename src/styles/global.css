@@ -2,26 +2,65 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ─────────────────────────────────────────────
+   @font-face — IBM Plex Sans Arabic (local WOFF2)
+   Files must be placed in public/fonts/
+   ───────────────────────────────────────────── */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/IBMPlexSansArabic-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/IBMPlexSansArabic-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/IBMPlexSansArabic-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/IBMPlexSansArabic-Bold.woff2') format('woff2');
+}
+
+/* ─────────────────────────────────────────────
+   @theme — Design System Tokens (DESIGN.md)
+   Defines semantic CSS variables consumed by
+   Tailwind utility classes throughout the app.
+   ───────────────────────────────────────────── */
 @theme {
-  --font-sans: 'IBM Plex Sans Arabic', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Font stack — Arabic-first */
+  --font-sans: 'IBM Plex Sans Arabic', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
 
-  /* Theme semantic colors driven by CSS variables for seamless light/dark mode */
-  --color-canvas: var(--color-canvas);
-  --color-surface: var(--color-surface);
-  --color-surface-subtle: var(--color-surface-subtle);
-  --color-surface-container: var(--color-surface-container);
-  --color-border: var(--color-border);
-  --color-border-hover: var(--color-border-hover);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-accent-container: var(--color-accent-container);
-  --color-accent-foreground: var(--color-accent-foreground);
-  --color-error: var(--color-error);
-  --color-error-container: var(--color-error-container);
+  /* Semantic color tokens — resolved at runtime via :root / .dark */
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-container: var(--surface-container);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-container: var(--accent-container);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
 
-  /* Primary Palette Degrees */
+  /* Primary palette degrees (static, for direct use when needed) */
   --color-primary-950: #001c3b;
   --color-primary-900: #022448;
   --color-primary-800: #1e3a5f;
@@ -34,7 +73,7 @@
   --color-primary-100: #e9edff;
   --color-primary-50: #f1f3ff;
 
-  /* Slate & Neutral Degrees */
+  /* Neutral / slate palette degrees */
   --color-slate-950: #0f172a;
   --color-slate-900: #141b2b;
   --color-slate-800: #1e293b;
@@ -46,76 +85,85 @@
   --color-slate-200: #e5e7eb;
   --color-slate-100: #f1f5f9;
   --color-slate-50: #f8f9fa;
-  --color-white: #ffffff;
 
-  /* Border Radii (matching DESIGN.md) */
-  --radius-sm: 0.25rem;
-  --radius-DEFAULT: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* Border radii (DESIGN.md) */
+  --radius-sm:   0.25rem;   /*  4px */
+  --radius:      0.5rem;    /*  8px */
+  --radius-md:   0.75rem;   /* 12px */
+  --radius-lg:   1rem;      /* 16px */
+  --radius-xl:   1.5rem;    /* 24px */
+  --radius-2xl:  1.75rem;   /* 28px — used for tool cards */
   --radius-full: 9999px;
 }
 
+/* ─────────────────────────────────────────────
+   :root — Light mode values
+   ───────────────────────────────────────────── */
 :root {
-  /* Light Mode Palette (Default) */
-  --color-canvas: #ffffff;
-  --color-surface: #f8f9fa;
-  --color-surface-subtle: #f1f5f9;
-  --color-surface-container: #e9edff;
-  --color-border: #e5e7eb;
-  --color-border-hover: #94a3b8;
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
-  --color-accent: #1e3a5f;
-  --color-accent-hover: #142841;
-  --color-accent-container: #d5e3fc;
-  --color-accent-foreground: #ffffff;
-  --color-error: #ba1a1a;
-  --color-error-container: #ffdad6;
+  --canvas:            #ffffff;
+  --surface:           #f8f9fa;
+  --surface-subtle:    #f1f5f9;
+  --surface-container: #e9edff;
+  --border:            #e5e7eb;
+  --border-hover:      #94a3b8;
+  --text-primary:      #111827;
+  --text-secondary:    #6b7280;
+  --accent:            #1e3a5f;
+  --accent-hover:      #142841;
+  --accent-container:  #d5e3fc;
+  --accent-foreground: #ffffff;
+  --error:             #ba1a1a;
+  --error-container:   #ffdad6;
 }
 
+/* ─────────────────────────────────────────────
+   .dark — Dark mode overrides
+   Applied by toggling .dark on <html>
+   ───────────────────────────────────────────── */
 .dark {
-  /* Dark Mode Palette */
-  --color-canvas: #0f172a;
-  --color-surface: #1e293b;
-  --color-surface-subtle: #162032;
-  --color-surface-container: #293040;
-  --color-border: #334155;
-  --color-border-hover: #64748b;
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-accent: #38bdf8;
-  --color-accent-hover: #7dd3fc;
-  --color-accent-container: #1e3a5f;
-  --color-accent-foreground: #0f172a;
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
+  --canvas:            #0f172a;
+  --surface:           #1e293b;
+  --surface-subtle:    #162032;
+  --surface-container: #293040;
+  --border:            #334155;
+  --border-hover:      #64748b;
+  --text-primary:      #f8fafc;
+  --text-secondary:    #94a3b8;
+  --accent:            #38bdf8;
+  --accent-hover:      #7dd3fc;
+  --accent-container:  #1e3a5f;
+  --accent-foreground: #0f172a;
+  --error:             #ffb4ab;
+  --error-container:   #93000a;
 }
 
-/* Base typography & smoothing rules for Arabic script */
+/* ─────────────────────────────────────────────
+   Base HTML / Body Defaults
+   ───────────────────────────────────────────── */
 html {
   font-family: var(--font-sans);
   direction: rtl;
   text-align: right;
-  background-color: var(--color-canvas);
-  color: var(--color-text-primary);
+  background-color: var(--canvas);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Generous line-height for Arabic ascenders/descenders */
   line-height: 1.7;
+  scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
-  background-color: var(--color-canvas);
-  color: var(--color-text-primary);
+  min-height: 100svh;
+  background-color: var(--canvas);
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
-/* Hide scrollbars for category swipe rail while retaining smooth touch scrolling */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* ─────────────────────────────────────────────
+   Utility — hide scrollbar for category swipe rail
+   ───────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
