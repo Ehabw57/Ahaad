@@ -9,11 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node --test --experimental-strip-types tests/**/*.test.ts",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/preact": "^6.1.1",
+    "@iconify-json/lucide": "^1.2.147",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.4.2",
+    "astro-icon": "^1.2.0",
+    "preact": "^11.0.2",
     "tailwindcss": "^4.3.3"
   }
 }
