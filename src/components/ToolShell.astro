@@ -1,0 +1,120 @@
+---
+// ToolShell.astro — pure static HTML layout shell for tool pages.
+// Zero client JavaScript. Follows constitution §1 and DESIGN.md.
+import { Icon } from "astro-icon/components";
+import { CATEGORIES } from "../data/categories.ts";
+import { TOOLS } from "../data/tools.ts";
+import ToolCard from "./ToolCard.astro";
+
+const {
+  slug,
+  title,
+  shortDescription,
+  catId,
+  icon = "iconHolder",
+} = Astro.props;
+const category = CATEGORIES[catId] || { name: "الأدوات", icon: "sparkles" };
+
+// Other published tools for discovery section
+const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
+  0,
+  4,
+);
+---
+
+<div class="max-w-285 mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
+  <!-- Breadcrumb -->
+  <nav
+    aria-label="مسار التنقل"
+    class="flex items-center gap-2 text-xs sm:text-sm text-text-secondary select-none"
+  >
+    <a href="/" class="hover:text-text-primary transition-colors">الرئيسية</a>
+    <span class="text-border" aria-hidden="true">/</span>
+    <a href={`/#categories`} class="hover:text-text-primary transition-colors"
+      >{category.name}</a
+    >
+    <span class="text-border" aria-hidden="true">/</span>
+    <span class="text-text-primary font-medium" aria-current="page"
+      >{title}</span
+    >
+  </nav>
+
+  <!-- Tool Header Banner -->
+  <header class="flex flex-col gap-3">
+    <div class="flex items-center gap-4">
+      <div
+        class="size-12 rounded-2xl bg-accent text-accent-foreground flex items-center justify-center shrink-0 shadow-xs"
+      >
+        <Icon name={icon} class="size-6" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <h1
+            class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight"
+          >
+            {title}
+          </h1>
+          <span
+            class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-surface-subtle text-text-secondary border border-border"
+          >
+            {category.name}
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm text-text-secondary leading-normal">
+          أداة ويب مجانية تعمل محلياً بخصوصية تامة 100% داخل متصفحك
+        </p>
+      </div>
+    </div>
+    <p
+      class="text-sm sm:text-base text-text-secondary max-w-3xl leading-relaxed mt-1"
+    >
+      {shortDescription}
+    </p>
+  </header>
+
+  <!-- Tool Interactive Workspace Island Container -->
+  <main class="w-full">
+    <slot />
+  </main>
+
+  <!-- Separation Line -->
+  <div class="w-full h-px bg-border my-2"></div>
+
+  <!-- Related Tools / Discovery Section -->
+  {
+    otherTools.length > 0 && (
+      <section class="flex flex-col gap-5 pt-2" aria-label="أدوات أخرى مقترحة">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="size-8 rounded-lg bg-surface flex items-center justify-center border border-border text-accent">
+              <Icon name="lucide:layout-grid" class="size-4" />
+            </div>
+            <h2 class="text-lg font-bold text-text-primary">
+              جرب أدوات أخرى من آحاد
+            </h2>
+          </div>
+          <a
+            href="/#toolsGrid"
+            class=" hidden lg:flex text-xs text-text-secondary hover:text-text-primary font-medium items-center gap-1 transition-colors"
+          >
+            <span>عرض كافة الأدوات</span>
+            <Icon name="lucide:arrow-left" class="size-3.5" />
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {otherTools.map((tool, i) => (
+            <ToolCard
+              slug={tool.slug}
+              title={tool.title}
+              shortDescription={tool.shortDescription}
+              icon={tool.icon}
+              catId={tool.catId}
+              index={i}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</div>
