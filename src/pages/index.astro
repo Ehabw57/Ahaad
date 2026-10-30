@@ -1,233 +1,30 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import SearchFilter from "../components/SearchFilter.astro";
-import CategoryPills from "../components/CategoryPills.astro";
-import ToolCard from "../components/ToolCard.astro";
 import { TOOLS } from "../data/tools.ts";
-import { Icon } from "astro-icon/components";
+import SearchTools from "../components/SearchTools";
 
 const publishedTools = TOOLS.filter((t) => t.published);
 ---
 
 <Layout>
-  <div class="flex flex-col min-h-svh">
-    <Header />
-
-    <main class="flex-1">
-      <div class="max-w-285 mx-auto px-4 sm:px-8">
+    <main class="min-h-svh md:px-16 lg:px-24 xl:px-36 py-5 sm:py-7"  >
+      <div class="max-w-285 mx-auto">
         <!-- Hero + Search -->
-        <SearchFilter />
-
-        <!-- Category Filter Pills -->
-        <CategoryPills />
-
-        <!-- Tools Grid -->
-        <section class="pb-16 px-2" aria-label="قائمة الأدوات">
-          <div
-            id="toolsGrid"
-            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4 md:gap-5"
+        <section class="pt-12 pb-7 px-2 text-center max-w-2xl mx-auto w-full">
+          <!-- Page heading -->
+          <h1
+            class="text-text-primary tracking-tight text-3xl sm:text-4xl font-bold leading-tight pb-3"
           >
-            {
-              publishedTools.map((tool, i) => (
-                <ToolCard
-                  slug={tool.slug}
-                  title={tool.title}
-                  shortDescription={tool.shortDescription}
-                  icon={tool.icon}
-                  catId={tool.catId}
-                  index={i}
-                />
-              ))
-            }
-          </div>
-
-          <!-- Empty State — hidden until no results match filter -->
-          <div
-            id="emptyState"
-            class="hidden flex-col items-center justify-center text-center py-8 px-4"
-            role="status"
-            aria-live="polite"
+            أدوات عملية وبسيطة، في مكان واحد
+          </h1>
+          <p
+            class="text-text-secondary text-sm sm:text-base font-normal leading-relaxed pb-7 text-center"
           >
-            <div
-              class="w-12 h-12 flex items-center justify-center rounded-2xl bg-surface text-text-secondary border border-border mb-4"
-            >
-              <Icon name="lucide:search-x" class="size-6" />
-            </div>
-            <h3 class="text-base font-semibold text-text-primary mb-1">
-              لم نجد أي أداة مطابقة
-            </h3>
-            <p
-              class="text-xs sm:text-sm text-text-secondary max-w-sm mb-5 leading-normal"
-            >
-              جرّب البحث بكلمات أخرى أو تصفح كافة التصنيفات المتاحة.
-            </p>
-            <button
-              id="resetFilterBtn"
-              type="button"
-              class="px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-canvas hover:bg-surface text-text-primary border border-border transition-colors cursor-pointer"
-            >
-              إعادة ضبط البحث والتصنيفات
-            </button>
-          </div>
+            مجموعة أدوات مفيدة وسريعة، مُصممة للتركيز والعمل المباشر دون تعقيد.
+          </p>
         </section>
+        <SearchTools client:idle />
       </div>
     </main>
-
-    <Footer />
-  </div>
 </Layout>
-
-<script>
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Homepage interactive logic — vanilla JS only (no Preact needed).
-  // Handles: theme toggle, search filter, category filter, results count,
-  // empty state visibility.
-  // Constitution: simple, readable, zero external deps.
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  (function () {
-    // ── Theme Toggle ──────────────────────────────────────────────────────────
-    const themeBtn = document.getElementById("themeToggleBtn");
-    if (themeBtn) {
-      themeBtn.addEventListener("click", () => {
-        const isDark = document.documentElement.classList.toggle("dark");
-        localStorage.setItem("ahaad-theme", isDark ? "dark" : "light");
-      });
-    }
-
-    // ── Filter State ─────────────────────────────────────────────────────────
-    let currentSearch = "";
-    let currentCategory = "all";
-
-    const cards = Array.from(
-      document.querySelectorAll<HTMLElement>(".tool-card"),
-    );
-    const resultsCountEl = document.getElementById("resultsCount");
-    const emptyStateEl = document.getElementById("emptyState");
-    const searchInput = document.getElementById(
-      "toolSearchInput",
-    ) as HTMLInputElement | null;
-    const clearBtn = document.getElementById("searchClearBtn");
-    const resetBtn = document.getElementById("resetFilterBtn");
-    const categoryBtns = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(".category-btn"),
-    );
-
-    function applyFilter(): void {
-      const query = currentSearch.trim().toLowerCase();
-      let visibleCount = 0;
-
-      cards.forEach((card) => {
-        const name = (card.dataset.name ?? "").toLowerCase();
-        const cat = card.dataset.category ?? "";
-
-        const matchesSearch = query === "" || name.includes(query);
-        const matchesCategory =
-          currentCategory === "all" || cat === currentCategory;
-        const visible = matchesSearch && matchesCategory;
-
-        card.hidden = !visible;
-        if (visible) visibleCount++;
-      });
-
-      // Update results counter
-      if (resultsCountEl) {
-        resultsCountEl.textContent = `عرض ${visibleCount} أداة`;
-      }
-
-      // Toggle empty state
-      if (emptyStateEl) {
-        if (visibleCount === 0) {
-          emptyStateEl.classList.remove("hidden");
-          emptyStateEl.classList.add("flex");
-        } else {
-          emptyStateEl.classList.add("hidden");
-          emptyStateEl.classList.remove("flex");
-        }
-      }
-    }
-
-    // ── Search Input ─────────────────────────────────────────────────────────
-    if (searchInput) {
-      searchInput.addEventListener("input", () => {
-        currentSearch = searchInput.value;
-        if (clearBtn) {
-          clearBtn.classList.toggle("hidden", currentSearch === "");
-        }
-        applyFilter();
-      });
-
-      searchInput.addEventListener("keydown", (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          currentSearch = "";
-          searchInput.value = "";
-          if (clearBtn) clearBtn.classList.add("hidden");
-          applyFilter();
-        }
-      });
-    }
-
-    // ── Clear Button ─────────────────────────────────────────────────────────
-    if (clearBtn && searchInput) {
-      clearBtn.addEventListener("click", () => {
-        currentSearch = "";
-        searchInput.value = "";
-        clearBtn.classList.add("hidden");
-        applyFilter();
-      });
-    }
-
-    // ── Category Pills ───────────────────────────────────────────────────────
-    const activeClass = [
-      "bg-text-primary",
-      "text-canvas",
-      "border-text-primary",
-      "font-semibold",
-    ];
-    const inactiveClass = [
-      "bg-canvas",
-      "text-text-secondary",
-      "border-border",
-      "font-medium",
-    ];
-
-    function setActiveCategory(btn: HTMLButtonElement): void {
-      // Reset all to inactive style
-      categoryBtns.forEach((b) => {
-        b.classList.remove(...activeClass);
-        b.classList.add(...inactiveClass);
-        b.removeAttribute("aria-current");
-      });
-      // Set clicked button to active style
-      btn.classList.remove(...inactiveClass);
-      btn.classList.add(...activeClass);
-      btn.setAttribute("aria-current", "true");
-    }
-
-    categoryBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        currentCategory = btn.dataset.category ?? "all";
-        setActiveCategory(btn);
-        applyFilter();
-      });
-    });
-
-    // ── Reset Button (empty state) ───────────────────────────────────────────
-    if (resetBtn && searchInput) {
-      resetBtn.addEventListener("click", () => {
-        currentSearch = "";
-        currentCategory = "all";
-        searchInput.value = "";
-        if (clearBtn) clearBtn.classList.add("hidden");
-
-        // Reset to "all" pill
-        const allBtn = categoryBtns.find((b) => b.dataset.category === "all");
-        if (allBtn) setActiveCategory(allBtn);
-
-        applyFilter();
-      });
-    }
-  })();
-</script>
+<script></script>

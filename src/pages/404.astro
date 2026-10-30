@@ -1,10 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import NotFoundVisual from '../assets/404-visual.svg';
-import { Icon } from 'astro-icon/components';
-import { TOOLS } from '../data/tools.ts';
+import Layout from "../layouts/Layout.astro";
+import NotFoundVisual from "../assets/404-visual.svg";
+import { Icon } from "astro-icon/components";
+import { TOOLS } from "../data/tools.ts";
 
 const publishedToolsCount = TOOLS.filter((t) => t.published).length;
 const toolsLabel =
@@ -16,15 +14,23 @@ const toolsLabel =
 <Layout
   title="404 - الصفحة غير موجودة | آحاد"
   description="عذرًا، الصفحة المطلوبة غير موجودة في منصة آحاد. قد يكون الرابط قديمًا أو غير مكتمل."
+  canonicalURL="404"
 >
-  <div class="flex flex-col min-h-svh selection:bg-accent-container ">
-
+  <div class="flex flex-col min-h-svh selection:bg-accent-container">
     <!-- Main 404 Content -->
-    <main class="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-14 sm:py-20 max-w-2xl mx-auto w-full text-center">
+    <main
+      class="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-14 sm:py-20 max-w-2xl mx-auto w-full text-center"
+    >
       <!-- Delicate Isometric Visual -->
-      <div class="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center mb-4 select-none" aria-hidden="true">
+      <div
+        class="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center mb-4 select-none"
+        aria-hidden="true"
+      >
         <!-- Radial atmospheric aura -->
-        <div class="absolute inset-0 bg-accent-container/40 dark:bg-accent/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div
+          class="absolute inset-0 bg-accent-container/40 dark:bg-accent/15 rounded-md blur-3xl pointer-events-none"
+        >
+        </div>
 
         <!-- Imported SVG Visual Component -->
         <NotFoundVisual class="w-full h-full relative z-10" />
@@ -32,27 +38,34 @@ const toolsLabel =
 
       <!-- Big Minimal Numeral "404" -->
       <div class="mb-3">
-        <span class="font-mono text-6xl sm:text-7xl font-bold tracking-tight text-accent select-none">
+        <span
+          class="font-mono text-6xl sm:text-7xl font-bold tracking-tight text-accent select-none"
+        >
           404
         </span>
       </div>
 
       <!-- Typographic Hierarchy -->
       <div class="space-y-3 max-w-lg mb-8">
-        <h1 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+        <h1
+          class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight"
+        >
           عذرًا، الصفحة المطلوبة غير موجودة
         </h1>
         <p class="text-text-secondary text-sm sm:text-base leading-relaxed">
-          قد يكون الرابط قديمًا أو غير مكتمل. لا تقلق، لم تفقد أي بيانات ومحرك الأدوات يعمل بكامل طاقته.
+          قد يكون الرابط قديمًا أو غير مكتمل. لا تقلق، لم تفقد أي بيانات ومحرك
+          الأدوات يعمل بكامل طاقته.
         </p>
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mb-8">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mb-8"
+      >
         <!-- Primary Action -->
         <a
           href="/"
-          class="w-full py-2  flex-1 inline-flex items-center justify-center gap-2   px-6 rounded-lg bg-accent hover:bg-accent-hover text-accent-foreground font-semibold text-sm transition-all duration-150 shadow-xs active:scale-[0.99]"
+          class="w-full py-2 flex-1 inline-flex items-center justify-center gap-2 px-6 rounded-md bg-text-primary hover:bg-accent-hover text-accent-foreground font-semibold text-sm transition-all duration-150 shadow-xs active:scale-[0.99]"
         >
           <span>العودة إلى الرئيسية</span>
           <Icon name="lucide:arrow-left" class="size-4" />
@@ -61,7 +74,7 @@ const toolsLabel =
         <!-- Secondary Action -->
         <a
           href="/suggest"
-          class="w-full  py-2 flex-1 inline-flex items-center justify-center gap-2  px-6 rounded-lg border border-border bg-canvas hover:bg-surface text-text-primary font-medium text-sm transition-all duration-150 active:scale-[0.99]"
+          class="w-full py-2 flex-1 inline-flex items-center justify-center gap-2 px-6 rounded-md border border-border bg-canvas hover:bg-surface text-text-primary font-medium text-sm transition-all duration-150 active:scale-[0.99]"
         >
           <Icon name="lucide:flag" class="size-4 text-text-secondary" />
           <span>إبلاغ عن مشكلة</span>
@@ -74,32 +87,21 @@ const toolsLabel =
           href="/#toolsGrid"
           class="inline-flex items-center gap-2 text-xs sm:text-sm text-text-secondary hover:text-text-primary transition-colors group"
         >
-          <Icon name="lucide:layout-grid" class="size-4 text-text-secondary group-hover:text-text-primary transition-colors" />
-          <span class="border-b border-transparent group-hover:border-border-hover pb-0.5">
+          <Icon
+            name="lucide:layout-grid"
+            class="size-4 text-text-unactive group-hover:text-text-primary transition-colors"
+          />
+          <span
+            class="border-b border-transparent group-hover:border-border-hover pb-0.5"
+          >
             أو تصفح دليل الأدوات الشامل ({toolsLabel})
           </span>
-          <Icon name="lucide:arrow-left" class="size-3.5 text-text-secondary group-hover:-translate-x-0.5 transition-transform" />
+          <Icon
+            name="lucide:arrow-left"
+            class="size-3.5 text-text-secondary group-hover:-translate-x-0.5 transition-transform"
+          />
         </a>
       </div>
     </main>
-
   </div>
 </Layout>
-
-<script>
-  // Theme Toggle synchronization
-  const themeBtn = document.getElementById("themeToggleBtn");
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.toggle("dark");
-      localStorage.setItem("ahaad-theme", isDark ? "dark" : "light");
-    });
-  }
-</script>
-
-<style>
-  .subtle-dot-grid {
-    background-size: 28px 28px;
-    background-image: radial-gradient(color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px);
-  }
-</style>

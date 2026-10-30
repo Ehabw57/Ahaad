@@ -4,7 +4,7 @@
 import { Icon } from "astro-icon/components";
 import { CATEGORIES } from "../data/categories.ts";
 import { TOOLS } from "../data/tools.ts";
-import ToolCard from "./ToolCard.astro";
+import ToolCard from "./ToolCard.tsx";
 
 const {
   slug,
@@ -108,7 +108,6 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
               slug={tool.slug}
               title={tool.title}
               shortDescription={tool.shortDescription}
-              icon={tool.icon}
               catId={tool.catId}
               index={i}
             />

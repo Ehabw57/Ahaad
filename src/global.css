@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@source "./components/ui";
+@source "./components/layout";
+
+
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -100,14 +104,15 @@
    :root — Light mode values
    ───────────────────────────────────────────── */
 :root {
-  --canvas:            #ffffff;
-  --surface:           #f8f9fa;
+  --canvas:            #f8fafb;
+  --surface:           #ffffff;
   --surface-subtle:    #f1f5f9;
   --surface-container: #e9edff;
   --border:            #e5e7eb;
   --border-hover:      #94a3b8;
   --text-primary:      #111827;
   --text-secondary:    #6b7280;
+  --text-unactive:     #9ba2b0;
   --accent:            #1e3a5f;
   --accent-hover:      #142841;
   --accent-container:  #d5e3fc;

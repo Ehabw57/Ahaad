@@ -1,5 +1,7 @@
 ---
-import '../styles/global.css';
+import "../global.css";
+import  Footer  from "../components/layout/Footer.astro";
+import  Header  from "../components/layout/Header.astro";
 
 interface Props {
   title?: string;
@@ -8,13 +10,13 @@ interface Props {
 }
 
 const {
-  title = 'آحاد — أدوات ويب عربية مفيدة وسريعة',
-  description = 'منصة عربية خفيفة وسريعة تجمع أدوات الويب اليومية المفيدة في مكان واحد بسيط وآمن.',
+  title = "آحاد — أدوات ويب عربية مفيدة وسريعة",
+  description = "منصة عربية خفيفة وسريعة تجمع أدوات الويب اليومية المفيدة في مكان واحد بسيط وآمن.",
   canonicalURL = Astro.url.href,
 } = Astro.props;
 
-const siteName = 'أَحَد';
-const ogImage = '/og-image.png';
+const siteName = "أَحَد";
+const ogImage = "/og-image.png";
 ---
 
 <!doctype html>
@@ -26,12 +28,14 @@ const ogImage = '/og-image.png';
     <!-- Zero FOUC: run before render to apply saved/OS theme -->
     <script is:inline>
       (function () {
-        var stored = localStorage.getItem('ahaad-theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
+        var stored = localStorage.getItem("ahaad-theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (stored === "dark" || (!stored && prefersDark)) {
+          document.documentElement.classList.add("dark");
         } else {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove("dark");
         }
       })();
     </script>
@@ -63,7 +67,10 @@ const ogImage = '/og-image.png';
     <!-- Generator tag -->
     <meta name="generator" content={Astro.generator} />
   </head>
-  <body>
+  <body >
+  {canonicalURL != '404' && <Header />}
+
     <slot />
+    {canonicalURL != '404' && <Footer />}
   </body>
 </html>
