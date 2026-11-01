@@ -1,9 +1,11 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ToolShell from '../../components/ToolShell.astro';
-import AgeCalculator from '../../islands/AgeCalculator.tsx';
-import { TOOLS } from '../../data/tools.ts';
-import type { Tool } from '../../types/index.ts';
+import Layout from "../../layouts/Layout.astro";
+import ToolShell from "../../components/ToolShell.astro";
+import AgeCalculator from "../../tools/age-calculator/AgeCalculator.tsx";
+import QrGenerator from "../../tools/qr-generator/QrGenerator.tsx";
+import ImageCompressor from "../../tools/image-compressor/ImageCompressor.tsx";
+import { TOOLS } from "../../data/tools.ts";
+import type { Tool } from "../../types/index.ts";
 
 export function getStaticPaths() {
   const publishedTools = TOOLS.filter((t) => t.published);
@@ -25,38 +27,35 @@ const { tool } = Astro.props;
   description={tool.metaDescription || tool.shortDescription}
 >
   <div class="flex flex-col min-h-svh">
-
     <main class="flex-1 w-full bg-canvas text-text-primary">
       <ToolShell
         slug={tool.slug}
         title={tool.title}
         shortDescription={tool.shortDescription}
+        toolDescription={tool.metaDescription}
         catId={tool.catId}
         icon={tool.icon}
       >
-        {tool.slug === 'age-calculator' ? (
-          <AgeCalculator client:load />
-        ) : (
-          <div class="w-full p-12 rounded-2xl border border-dashed border-border text-center flex flex-col items-center justify-center gap-3 bg-surface">
-            <h3 class="text-base font-bold text-text-primary">هذه الأداة قيد التطوير</h3>
-            <p class="text-xs sm:text-sm text-text-secondary max-w-md">
-              نعمل حالياً على إطلاق هذه الأداة وفق أعلى معايير الدقة والسرعة والخصوصية.
-            </p>
-          </div>
-        )}
+        {
+          tool.slug === "age-calculator" ? (
+            <AgeCalculator client:load />
+          ) : tool.slug === "qr-generator" ? (
+            <QrGenerator client:load />
+          ) : tool.slug === "image-compressor" ? (
+            <ImageCompressor client:load />
+          ) : (
+            <div class="w-full p-12 rounded-2xl border border-dashed border-border text-center flex flex-col items-center justify-center gap-3 bg-surface">
+              <h3 class="text-base font-bold text-text-primary">
+                هذه الأداة قيد التطوير
+              </h3>
+              <p class="text-xs sm:text-sm text-text-secondary max-w-md">
+                نعمل حالياً على إطلاق هذه الأداة وفق أعلى معايير الدقة والسرعة
+                والخصوصية.
+              </p>
+            </div>
+          )
+        }
       </ToolShell>
     </main>
-
   </div>
 </Layout>
-
-<script>
-  // Theme Toggle synchronization
-  const themeBtn = document.getElementById("themeToggleBtn");
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.toggle("dark");
-      localStorage.setItem("ahaad-theme", isDark ? "dark" : "light");
-    });
-  }
-</script>

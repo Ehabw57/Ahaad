@@ -7,7 +7,7 @@
 export interface DateParts {
   year: number;
   month: number; // 1-12
-  day: number;   // 1-31
+  day: number; // 1-31
 }
 
 export interface ExactAge {
@@ -46,7 +46,7 @@ export interface DatePairValidation {
  */
 export function isLeapYear(year: number): boolean {
   if (!Number.isInteger(year)) return false;
-  return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 /**
@@ -54,7 +54,20 @@ export function isLeapYear(year: number): boolean {
  */
 export function daysInMonth(year: number, month: number): number {
   if (month < 1 || month > 12) return 0;
-  const daysMap = [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const daysMap = [
+    31,
+    isLeapYear(year) ? 29 : 28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ];
   return daysMap[month - 1];
 }
 
@@ -62,13 +75,15 @@ export function daysInMonth(year: number, month: number): number {
  * Validates a DateParts object against the Gregorian calendar.
  * Rejects impossible dates like April 31 or Feb 29 in non-leap years.
  */
-export function isValidDate(date: Partial<DateParts> | null | undefined): date is DateParts {
+export function isValidDate(
+  date: Partial<DateParts> | null | undefined,
+): date is DateParts {
   if (!date) return false;
   const { year, month, day } = date;
   if (
-    typeof year !== 'number' ||
-    typeof month !== 'number' ||
-    typeof day !== 'number' ||
+    typeof year !== "number" ||
+    typeof month !== "number" ||
+    typeof day !== "number" ||
     !Number.isInteger(year) ||
     !Number.isInteger(month) ||
     !Number.isInteger(day)
@@ -95,7 +110,10 @@ export function toUtcMidnightMs(d: DateParts): number {
 /**
  * Calculates elapsed calendar days between two dates.
  */
-export function calculateCalendarDaysDiff(earlier: DateParts, later: DateParts): number {
+export function calculateCalendarDaysDiff(
+  earlier: DateParts,
+  later: DateParts,
+): number {
   const ms1 = toUtcMidnightMs(earlier);
   const ms2 = toUtcMidnightMs(later);
   return Math.round((ms2 - ms1) / 86400000);
@@ -106,18 +124,21 @@ export function calculateCalendarDaysDiff(earlier: DateParts, later: DateParts):
  * - Both must be valid Gregorian dates.
  * - Calculation date must be strictly later than date of birth.
  */
-export function validateDatePair(birth: Partial<DateParts>, calc: Partial<DateParts>): DatePairValidation {
+export function validateDatePair(
+  birth: Partial<DateParts>,
+  calc: Partial<DateParts>,
+): DatePairValidation {
   if (!isValidDate(birth)) {
     return {
       isValid: false,
-      birthError: 'تاريخ الميلاد غير مكتمل أو غير صالح في التقويم الميلادي.',
+      birthError: "تاريخ الميلاد غير مكتمل أو غير صالح في التقويم الميلادي.",
     };
   }
 
   if (!isValidDate(calc)) {
     return {
       isValid: false,
-      calcError: 'تاريخ الحساب غير مكتمل أو غير صالح في التقويم الميلادي.',
+      calcError: "تاريخ الحساب غير مكتمل أو غير صالح في التقويم الميلادي.",
     };
   }
 
@@ -126,16 +147,19 @@ export function validateDatePair(birth: Partial<DateParts>, calc: Partial<DatePa
   if (diff === 0) {
     return {
       isValid: false,
-      birthError: 'يجب أن يكون تاريخ الميلاد سابقاً لتاريخ الحساب ولا يمكن أن يتطابقا.',
-      generalError: 'يجب أن يكون تاريخ الميلاد سابقاً لتاريخ الحساب لمواصلة العملية الدقيقة.',
+      birthError:
+        "يجب أن يكون تاريخ الميلاد سابقاً لتاريخ الحساب ولا يمكن أن يتطابقا.",
+      generalError:
+        "يجب أن يكون تاريخ الميلاد سابقاً لتاريخ الحساب لمواصلة العملية الدقيقة.",
     };
   }
 
   if (diff < 0) {
     return {
       isValid: false,
-      birthError: 'لا يمكن أن يكون تاريخ الميلاد لاحقاً لتاريخ الحساب.',
-      generalError: 'يجب أن يكون تاريخ الميلاد سابقاً لتاريخ الحساب لمواصلة العملية الدقيقة.',
+      birthError: "لا يمكن أن يكون تاريخ الميلاد لاحقاً لتاريخ الحساب.",
+      generalError:
+        "يجب أن يكون تاريخ الميلاد سابقاً لتاريخ الحساب لمواصلة العملية الدقيقة.",
     };
   }
 
@@ -181,7 +205,10 @@ export function calculateExactAge(birth: DateParts, calc: DateParts): ExactAge {
  * If calc date is on the birthday, returns isToday = true, daysRemaining = 0.
  * In non-leap years, Feb 29 birthdays occur on March 1.
  */
-export function calculateNextBirthday(birth: DateParts, calc: DateParts): NextBirthdayInfo {
+export function calculateNextBirthday(
+  birth: DateParts,
+  calc: DateParts,
+): NextBirthdayInfo {
   function getBirthdayInYear(targetYear: number): DateParts {
     if (birth.month === 2 && birth.day === 29) {
       return isLeapYear(targetYear)
@@ -211,7 +238,7 @@ export function calculateNextBirthday(birth: DateParts, calc: DateParts): NextBi
  * Formats integer with Western digits and thousands separators (e.g. 9,225).
  */
 export function formatNumber(n: number): string {
-  return new Intl.NumberFormat('en-US').format(n);
+  return new Intl.NumberFormat("en-US").format(n);
 }
 
 /**
@@ -219,19 +246,22 @@ export function formatNumber(n: number): string {
  */
 export function formatArabicDate(date: DateParts): string {
   const d = new Date(Date.UTC(date.year, date.month - 1, date.day, 12, 0, 0));
-  return new Intl.DateTimeFormat('ar-SA-u-ca-gregory', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
+  return new Intl.DateTimeFormat("ar-SA-u-ca-gregory", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
   }).format(d);
 }
 
 /**
  * Generates the complete AgeCalculationResult for a valid birth and calculation date pair.
  */
-export function calculateAge(birth: DateParts, calc: DateParts): AgeCalculationResult {
+export function calculateAge(
+  birth: DateParts,
+  calc: DateParts,
+): AgeCalculationResult {
   const exactAge = calculateExactAge(birth, calc);
   const totalDays = calculateCalendarDaysDiff(birth, calc);
   const weeks = Math.floor(totalDays / 7);
@@ -255,7 +285,10 @@ export function calculateAge(birth: DateParts, calc: DateParts): AgeCalculationR
  * - Calculation date is today's local date (or provided date for testing).
  * - Date of birth is exactly 25 years before calculation date.
  */
-export function getDefaultDates(referenceDate?: Date): { birth: DateParts; calc: DateParts } {
+export function getDefaultDates(referenceDate?: Date): {
+  birth: DateParts;
+  calc: DateParts;
+} {
   const now = referenceDate || new Date();
   const cYear = now.getFullYear();
   const cMonth = now.getMonth() + 1;
@@ -281,7 +314,10 @@ export function getDefaultDates(referenceDate?: Date): { birth: DateParts; calc:
  * Formats the multi-line Arabic summary string for the "نسخ النتيجة" action.
  * Structured per spec §14.
  */
-export function formatAgeSummary(result: AgeCalculationResult): string {
+export function formatAgeSummary(
+  result: AgeCalculationResult,
+  link?: string,
+): string {
   const { exactAge, totalDays, totalWeeks, totalHours, nextBirthday } = result;
 
   const exactAgeStr = `العمر الدقيق: ${exactAge.years} سنة و${exactAge.months} أشهر و${exactAge.days} يومًا`;
@@ -290,17 +326,31 @@ export function formatAgeSummary(result: AgeCalculationResult): string {
   const totalHoursStr = `إجمالي الساعات: ${formatNumber(totalHours)} ساعة`;
 
   const nextBirthdayStr = nextBirthday.isToday
-    ? 'عيد ميلادك القادم: عيد ميلادك اليوم!'
+    ? "عيد ميلادك القادم: عيد ميلادك اليوم!"
     : `عيد ميلادك القادم: يتبقى ${formatNumber(nextBirthday.daysRemaining)} يومًا`;
 
-  return [exactAgeStr, totalDaysStr, totalWeeksStr, totalHoursStr, nextBirthdayStr].join('\n');
+  const parts = [
+    exactAgeStr,
+    totalDaysStr,
+    totalWeeksStr,
+    totalHoursStr,
+    nextBirthdayStr,
+  ];
+
+  if (link) {
+    parts.unshift(link);
+  }
+
+  return parts.join("\n");
 }
 
 /**
  * Parses a YYYY-MM-DD string into a validated DateParts object or null.
  */
-export function parseDateString(str: string | null | undefined): DateParts | null {
-  if (!str || typeof str !== 'string') return null;
+export function parseDateString(
+  str: string | null | undefined,
+): DateParts | null {
+  if (!str || typeof str !== "string") return null;
   const match = str.trim().match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
   if (!match) return null;
   const year = parseInt(match[1], 10);
@@ -315,8 +365,8 @@ export function parseDateString(str: string | null | undefined): DateParts | nul
  * Formats DateParts into standard YYYY-MM-DD format (used in native inputs and URLs).
  */
 export function formatDateString(date: DateParts): string {
-  const y = String(date.year).padStart(4, '0');
-  const m = String(date.month).padStart(2, '0');
-  const d = String(date.day).padStart(2, '0');
+  const y = String(date.year).padStart(4, "0");
+  const m = String(date.month).padStart(2, "0");
+  const d = String(date.day).padStart(2, "0");
   return `${y}-${m}-${d}`;
 }

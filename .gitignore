@@ -5,6 +5,11 @@ dist/
 .astro/
 .vscode/
 
+# others
+docs/
+ui/
+test/
+
 # dependencies
 node_modules/
 

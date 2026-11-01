@@ -7,10 +7,19 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon({
-    iconDir: "src/assets/icons",
-  }), preact()],
+  devToolbar: {
+    enabled: false,
+  },
+  integrations: [
+    icon({
+      iconDir: "src/assets/icons",
+    }),
+    preact(),
+  ],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      exclude: ["@jsquash/oxipng"],
+    },
   },
 });

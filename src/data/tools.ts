@@ -9,7 +9,7 @@ export const TOOLS: Tool[] = [
       "احسب عمرك بدقة بالسنوات والأشهر والأيام بالتاريخين الهجري والميلادي.",
     metaDescription:
       "حاسبة عمر مجانية وسريعة تحسب عمرك بدقة بالغة بالهجري والميلادي مع موعد ميلادك القادم.",
-    icon: "iconHolder",
+    icon: "cake",
     published: true,
     keywords: [
       "حساب العمر",
@@ -19,6 +19,30 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
+    slug: "image-compressor",
+    catId: "images",
+    title: "ضاغط الصور",
+    shortDescription:
+      "اضغط صور JPG وPNG وWebP مباشرة في متصفحك دون رفعها إلى أي خادم، وحمّل كل صورة على حدة أو الكل في ملف ZIP.",
+    metaDescription:
+      "أداة ضغط صور مجانية وسريعة تعمل داخل المتصفح بأمان وخصوصية تامة، تدعم JPG وPNG وWebP مع خيار التنزيل المجمع ZIP.",
+    icon: "image-down",
+    published: true,
+    keywords: ["ضغط الصور", "تصغير حجم الصورة", "ضغط png", "ضغط jpg", "ضغط webp"],
+  },
+  {
+    slug: "qr-generator",
+    catId: "daily",
+    title: "مولد رموز QR",
+    shortDescription:
+      "إنشاء رموز استجابة سريعة فورية للروابط، النصوص، وشبكات الواي فاي مجاناً.",
+    metaDescription:
+      "أداة مجانية لتوليد باركود QR Code عالي الدقة دون أي اتصال بخوادم خارجية.",
+    icon: "qr-code",
+    published: true,
+    keywords: ["صانع qr code", "توليد باركود", "مولد رمز الاستجابة السريعة"],
+  },
+  {
     slug: "word-counter",
     catId: "text",
     title: "عداد الكلمات والحروف",
@@ -26,7 +50,7 @@ export const TOOLS: Tool[] = [
       "إحصاء دقيق لعدد الكلمات، الحروف، الفقرات وزمن القراءة للنصوص العربية.",
     metaDescription:
       "أداة مجانية لعد الكلمات والحروف والأسطر في النصوص العربية مع خيارات تنظيف وتجريد التشكيل.",
-    icon: "iconHolder",
+    icon: "cake",
     published: true,
     keywords: [
       "عداد الكلمات",
@@ -43,7 +67,7 @@ export const TOOLS: Tool[] = [
       "احسب الخصومات، الضرائب، وزيادة أو نقصان النسب بسهولة وبشكل فوري.",
     metaDescription:
       "حاسبة سريعة لحساب النسب المئوية، الخصم، وضريبة القيمة المضافة مباشرة.",
-    icon: "iconHolder",
+    icon: "cake",
     published: true,
     keywords: ["حساب النسبة المئوية", "حاسبة الخصم", "حساب الضريبة"],
   },
@@ -55,7 +79,7 @@ export const TOOLS: Tool[] = [
       "معرفة عدد الأيام، الأسابيع، والشهور الفاصلة بين أي تاريخين بدقة.",
     metaDescription:
       "أداة لحساب الفرق الزمني بين تاريخين بالسنوات والأشهر والأيام والأسابيع.",
-    icon: "iconHolder",
+    icon: "cake",
     published: true,
     keywords: ["فرق التاريخين", "كم باقي يوم", "حساب المدة بين تاريخين"],
   },
@@ -67,7 +91,7 @@ export const TOOLS: Tool[] = [
       "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
     metaDescription:
       "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
-    icon: "iconHolder",
+    icon: "cake",
     published: true,
     keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
   },
@@ -79,33 +103,9 @@ export const TOOLS: Tool[] = [
       "تحويل فوري وشامل لوحدات الطول، الوزن، المساحة، والحرارة.",
     metaDescription:
       "محول وحدات مجاني وسريع للتحويل بين المتر والبوصة، الكيلوجرام والباوند، وغيرها.",
-    icon: "iconHolder",
+    icon: "cake",
     published: true,
     keywords: ["تحويل وحدات", "محول الطول", "محول الوزن"],
-  },
-  {
-    slug: "image-compressor",
-    catId: "images",
-    title: "ضاغط ومحول الصور للويب",
-    shortDescription:
-      "ضغط وتصغير حجم صور WebP, PNG, JPG محلياً داخل جهازك دون رفعها.",
-    metaDescription:
-      "أداة ضغط صور آمنة وسريعة تعمل داخل المتصفح مباشرة دون استهلاك باقة الإنترنت.",
-    icon: "iconHolder",
-    published: true,
-    keywords: ["ضغط الصور", "تصغير حجم الصورة", "تحويل webp"],
-  },
-  {
-    slug: "qr-generator",
-    catId: "daily",
-    title: "مولد رموز QR",
-    shortDescription:
-      "إنشاء رموز استجابة سريعة فورية للروابط، النصوص، وشبكات الواي فاي مجاناً.",
-    metaDescription:
-      "أداة مجانية لتوليد باركود QR Code عالي الدقة دون أي اتصال بخوادم خارجية.",
-    icon: "iconHolder",
-    published: true,
-    keywords: ["صانع qr code", "توليد باركود", "مولد رمز الاستجابة السريعة"],
   },
 ];
 

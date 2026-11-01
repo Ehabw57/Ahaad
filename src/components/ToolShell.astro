@@ -10,6 +10,7 @@ const {
   slug,
   title,
   shortDescription,
+  toolDescription,
   catId,
   icon = "iconHolder",
 } = Astro.props;
@@ -45,7 +46,7 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
       <div
         class="size-12 rounded-2xl bg-accent text-accent-foreground flex items-center justify-center shrink-0 shadow-xs"
       >
-        <Icon name={icon} class="size-6" />
+        <Icon name={"lucide:"+icon} class="size-6" />
       </div>
       <div class="flex flex-col gap-1">
         <div class="flex items-center gap-2.5 flex-wrap">
@@ -54,21 +55,21 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
           >
             {title}
           </h1>
-          <span
+          <!-- <span
             class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-surface-subtle text-text-secondary border border-border"
           >
             {category.name}
-          </span>
+          </span> -->
         </div>
         <p class="text-xs sm:text-sm text-text-secondary leading-normal">
-          أداة ويب مجانية تعمل محلياً بخصوصية تامة 100% داخل متصفحك
+          {shortDescription}
         </p>
       </div>
     </div>
     <p
       class="text-sm sm:text-base text-text-secondary max-w-3xl leading-relaxed mt-1"
     >
-      {shortDescription}
+      {toolDescription}
     </p>
   </header>
 
@@ -106,6 +107,7 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
           {otherTools.map((tool, i) => (
             <ToolCard
               slug={tool.slug}
+              // icon={}
               title={tool.title}
               shortDescription={tool.shortDescription}
               catId={tool.catId}
