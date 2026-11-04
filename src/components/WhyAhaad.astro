@@ -1,0 +1,33 @@
+---
+import { Icon } from "astro-icon/components";
+const principles = [
+  { icon: "lock", title: "خصوصية تامة ومحلية", description: "تُعالج كافة الملفات والبيانات محلياً داخل متصفحك مباشرة؛ لا نرفع أو نخزن أي بايت على سيرفراتنا.", solid: false },
+  { icon: "bolt", title: "سرعة فائقة بلا إعلانات", description: "واجهة نظيفة وخفيفة تماماً، خالية من النوافذ المنبثقة، ملفات التتبع أو الإعلانات المشتتة للانتباه.", solid: true },
+  { icon: "package-open", title: "مجانية ومفتوحة بالكامل", description: "كافة الأدوات متاحة للجميع بدون شروط، بدون بطاقات دفع، وبدون إلزام بتسجيل حساب أو بريد إلكتروني.", solid: false },
+  { icon: "palette", title: "واجهة عربية أصيلة", description: "تصميم محلي مُفصل بعناية للغة العربية واتجاه RTL، بخط عربي هندسي متوازن وهدوء بصري مريح.", solid: true },
+];
+---
+<section class="px-2 pt-16 pb-12" id="why-ahaad">
+  <div class="text-center max-w-xl mx-auto mb-10">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-surface-subtle border border-border text-text-secondary text-xs font-medium mb-3">
+      <Icon name="lucide:badge-check" size={20}/>
+      <span>المبادئ والأسس</span>
+    </div>
+    <h2 class="text-text-primary text-2xl sm:text-3xl font-bold tracking-tight mb-2.5">لماذا آحاد؟</h2>
+    <p class="text-text-secondary text-xs sm:text-sm leading-relaxed">بُنيت المنصة وفق فلسفة المينيماليزم الرقمي: كفاءة مطلقة، بدون تعقيدات أو تنازل عن الخصوصية.</p>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {principles.map((item) => (
+      <article class="p-6 rounded-2xl border border-border bg-surface flex flex-col text-right">
+        <div class:list={[
+          "w-11 h-11 flex items-center justify-center rounded-xl border border-border mb-4",
+          item.solid ? "bg-accent text-accent-foreground" : "bg-surface-subtle text-text-primary",
+        ]}>
+          <Icon name={'lucide:' + item.icon} size={25} />
+        </div>
+        <h3 class="text-text-primary font-semibold text-sm mb-2">{item.title}</h3>
+        <p class="text-text-secondary text-xs leading-relaxed">{item.description}</p>
+      </article>
+    ))}
+  </div>
+</section>

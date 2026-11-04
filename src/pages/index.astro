@@ -2,6 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import { TOOLS } from "../data/tools.ts";
 import SearchTools from "../components/SearchTools";
+import WhyAhaad from "../components/WhyAhaad.astro";
+import ToolsGuide from "../components/ToolsGuide.astro";
+import SuggestTool from "../components/SuggestTool.astro";
 
 const publishedTools = TOOLS.filter((t) => t.published);
 ---
@@ -25,6 +28,9 @@ const publishedTools = TOOLS.filter((t) => t.published);
         </section>
         <SearchTools client:idle />
       </div>
+      <WhyAhaad/>
+      <ToolsGuide />
+      <SuggestTool />
     </main>
 </Layout>
 <script></script>

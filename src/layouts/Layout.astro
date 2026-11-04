@@ -1,7 +1,7 @@
 ---
 import "../global.css";
-import  Footer  from "../components/layout/Footer.astro";
-import  Header  from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import Header from "../components/layout/Header.astro";
 
 interface Props {
   title?: string;
@@ -15,7 +15,7 @@ const {
   canonicalURL = Astro.url.href,
 } = Astro.props;
 
-const siteName = "أَحَد";
+const siteName = "أَحاد";
 const ogImage = "/og-image.png";
 ---
 
@@ -43,6 +43,13 @@ const ogImage = "/og-image.png";
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preload"
+      href="/fonts/IBMPlexSansArabic-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- SEO -->
     <title>{title}</title>
@@ -67,10 +74,10 @@ const ogImage = "/og-image.png";
     <!-- Generator tag -->
     <meta name="generator" content={Astro.generator} />
   </head>
-  <body >
-  {canonicalURL != '404' && <Header />}
+  <body>
+    {canonicalURL != "404" && <Header />}
 
     <slot />
-    {canonicalURL != '404' && <Footer />}
+    {canonicalURL != "404" && <Footer />}
   </body>
 </html>

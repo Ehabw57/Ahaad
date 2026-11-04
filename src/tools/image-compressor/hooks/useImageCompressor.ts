@@ -16,7 +16,7 @@ import { getStoredToolValue, setStoredToolValue } from '../../../utils/stateSync
 import { decodeImage } from '../engine/decode.ts';
 import { encodeCanvas } from '../engine/canvasEncode.ts';
 import { encodePng } from '../engine/pngEncode.ts';
-import { downloadBlob, buildZip } from '../engine/zip.ts';
+import { downloadBlob, buildZip } from '../../../utils/zip.ts'
 import type { ImageItem, FileRejection, ErrorCode } from '../types.ts';
 
 const TOOL_SLUG = 'image-compressor';

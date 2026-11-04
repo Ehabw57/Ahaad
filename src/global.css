@@ -46,7 +46,7 @@
    ───────────────────────────────────────────── */
 @theme {
   /* Font stack — Arabic-first */
-  --font-sans: 'IBM Plex Sans Arabic', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'IBM Plex Sans'; 
 
   /* Semantic color tokens — resolved at runtime via :root / .dark */
   --color-canvas: var(--canvas);
@@ -104,17 +104,18 @@
    :root — Light mode values
    ───────────────────────────────────────────── */
 :root {
-  --canvas:            #f8fafb;
-  --surface:           #ffffff;
-  --surface-subtle:    #f1f5f9;
+  --canvas:            #f7f7fa;
+  --surface:           #fdfdfd;
+  --surface-subtle:    #f7f7fa;
   --surface-container: #e9edff;
   --border:            #e5e7eb;
   --border-hover:      #94a3b8;
   --text-primary:      #111827;
   --text-secondary:    #6b7280;
   --text-unactive:     #9ba2b0;
-  --accent:            #1e3a5f;
-  --accent-hover:      #142841;
+  --unactive:          #9ba2b0;
+  --accent:            #232a39;
+  --accent-hover:      #020202;
   --accent-container:  #d5e3fc;
   --accent-foreground: #ffffff;
   --error:             #ba1a1a;

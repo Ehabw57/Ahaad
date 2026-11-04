@@ -27,6 +27,7 @@ export default function SearchFilter({ query, setQuery }: SearchFilterProps) {
           type="text"
           autocomplete="off"
           placeholder="ابحث عن أداة... (مثلاً: حساب العمر، ضغط الصور، نسبة مئوية)"
+          onKeyDown={(e)=> {if (e.key == 'Escape') setQuery("")}}
           value={query}
           onInput={(event) => setQuery(event.currentTarget.value)}
           class="w-full h-full bg-transparent border-0 text-text-primary placeholder:text-text-unactive text-sm sm:text-base font-normal focus:ring-0 focus:outline-none pe-5"

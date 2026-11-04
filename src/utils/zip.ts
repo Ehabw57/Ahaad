@@ -2,17 +2,17 @@
  * zip.ts — Client-side ZIP creation using fflate and file download helper.
  */
 
-import { zip, type AsyncZippable } from 'fflate';
+import { zip, zipSync, type AsyncZippable } from "fflate";
 
 /**
  * Initiates browser download of a Blob with the specified filename.
  */
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
+  const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = filename;
-  anchor.style.display = 'none';
+  anchor.style.display = "none";
   document.body.appendChild(anchor);
   anchor.click();
 
@@ -41,8 +41,18 @@ export async function buildZip(
       if (err) {
         reject(err);
       } else {
-        resolve(new Blob([data], { type: 'application/zip' }));
+        resolve(new Blob([data], { type: "application/zip" }));
       }
     });
   });
+}
+
+export async function zipFiles(
+  files: { name: string; blob: Blob }[],
+): Promise<Blob> {
+  const entries: Record<string, Uint8Array> = {};
+  for (const f of files)
+    entries[f.name] = new Uint8Array(await f.blob.arrayBuffer());
+  const zipped = zipSync(entries, { level: 0 });
+  return new Blob([zipped as BlobPart], { type: "application/zip" });
 }

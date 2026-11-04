@@ -1,0 +1,27 @@
+---
+import { Icon } from "astro-icon/components";
+---
+<section class="px-2 pt-6 pb-16" id="suggest-tool">
+  <div class="rounded-2xl border border-border bg-surface-subtle p-6 sm:p-10 text-center max-w-2xl mx-auto">
+    <div class="w-12 h-12 mx-auto flex items-center justify-center rounded-md bg-surface text-text-primary border border-border mb-4">
+      <Icon name="lucide:lightbulb" size={28}/>
+    </div>
+    <h2 class="text-text-primary text-xl sm:text-2xl font-bold tracking-tight mb-2">هل تحتاج إلى أداة غير موجودة؟</h2>
+    <p class="text-text-secondary text-xs sm:text-sm leading-relaxed mb-6 max-w-lg mx-auto">نطوّر آحاد باستمرار بالاستماع لمجتمع المبدعين والمطورين. شاركنا فكرتك أو الأداة الروتينية التي تود إضافتها لنبنيها لك بكل بساطة وسرعة.</p>
+    <!-- send the form to /suggest-tool -->
+    <form action="/suggest-tool" method="GET"  class="flex flex-col md:flex-row items-stretch md:items-center gap-2.5 max-w-md mx-auto mb-4" id="suggestToolForm">
+      <label class="sr-only" for="suggestToolInput">اسم الأداة أو وصف فكرتها</label>
+      <input id="suggestToolInput" name="suggestion" class="md:flex-1 h-11 px-4 text-xs  rounded-lg border border-border bg-surface text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-border-hover transition-colors" placeholder="اكتب اسم الأداة أو وصف فكرتها..." type="text">
+      <button class="h-11 px-5 rounded-lg bg-accent disabled:bg-[#bfbfcf] text-accent-foreground hover:bg-accent-hover text-xs sm:text-sm font-semibold transition-colors shrink-0 flex items-center justify-center gap-1.5" type="submit">
+        <span>أرسل اقتراحك</span>
+        <Icon name="lucide:send-horizontal" size={17}/>
+      </button>
+    </form>
+    <div class="flex flex-wrap items-center justify-center gap-1.5 text-[11px] text-text-secondary">
+      <span>مقترحات شائعة:</span>
+      {["محول ملفات SVG", "مقارن النصوص Diff", "حاسبة النسبة المئوية"].map((suggestion) => (
+        <button type="button" class="suggestion-chip px-2 py-0.5 rounded-md bg-surface border border-border text-text-secondary hover:text-text-primary transition-colors">{suggestion}</button>
+      ))}
+    </div>
+  </div>
+</section>

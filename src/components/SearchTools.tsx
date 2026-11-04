@@ -1,5 +1,5 @@
 import { useMemo, useState } from "preact/hooks";
-import { X, SearchX } from "lucide-preact";
+import { X, SearchX, ArrowLeft } from "lucide-preact";
 
 import SearchFilter from "./SearchFilter";
 import CategoryPills from "./ui/CategoryPills";
@@ -46,11 +46,22 @@ export default function SearchTools() {
       {/* Tools Grid */}
       <section>
         {filteredTools.length > 0 ? (
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4">
-            {filteredTools.map((tool, index) => (
-              <ToolCard key={tool.slug} {...tool} icon={X} index={index} />
-            ))}
-          </div>
+          <>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4">
+              {filteredTools.slice(0, 6).map((tool, index) => (
+                <ToolCard key={tool.slug} {...tool} icon={X} index={index} />
+              ))}
+            </div>
+            {filteredTools.length > 6 && (
+              <a
+                href="/category"
+                class="flex items-center mx-auto my-6 w-50 gap-2 px-6 py-3 bg-surface text-text-primary font-semibold text-sm border border-border hover:border-border-hover transition-colors"
+              >
+                {" "}
+                <span>عرض جميع الأدوات</span> <ArrowLeft size={19} />{" "}
+              </a>
+            )}
+          </>
         ) : (
           <div
             class="flex flex-col items-center justify-center text-center py-8 px-4"
@@ -69,7 +80,7 @@ export default function SearchTools() {
             <button
               type="button"
               class="px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-canvas hover:bg-surface text-text-primary border border-border transition-colors cursor-pointer"
-              onClick={()=>setQuery('')}
+              onClick={() => setQuery("")}
             >
               إعادة ضبط البحث والتصنيفات
             </button>
