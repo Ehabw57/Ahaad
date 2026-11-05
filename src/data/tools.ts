@@ -1,15 +1,18 @@
-import type { Tool } from '../types/index.ts';
+import { Cake, ImageDown, Scan, QrCode } from "lucide-preact";
+import type { Tool } from "../types/index.ts";
+import AgeCalculator from "../tools/age-calculator/AgeCalculator.tsx";
 
 export const TOOLS: Tool[] = [
   {
     slug: "age-calculator",
     catId: "calculators",
-    title: "حاسبة العمر الدقيقة",
-    shortDescription:
-      "احسب عمرك بدقة بالسنوات والأشهر والأيام بالتاريخين الهجري والميلادي.",
+    title: "حاسبة العمر",
+    shortDescription: "احسب العمر بالسنوات والأشهر والأيام بالتاريخ الميلادي.",
     metaDescription:
-      "حاسبة عمر مجانية وسريعة تحسب عمرك بدقة بالغة بالهجري والميلادي مع موعد ميلادك القادم.",
-    icon: "cake",
+      "حاسبة عمر مجانية وسريعة تحسب عمرك الميلادي مع موعد ميلادك القادم.",
+    iconName: "cake",
+    icon: Cake,
+    component: AgeCalculator,
     published: true,
     keywords: [
       "حساب العمر",
@@ -23,22 +26,29 @@ export const TOOLS: Tool[] = [
     catId: "images",
     title: "ضاغط الصور",
     shortDescription:
-      "اضغط صور JPG وPNG وWebP مباشرة في متصفحك دون رفعها إلى أي خادم، وحمّل كل صورة على حدة أو الكل في ملف ZIP.",
+      "اضغط صور JPG وPNG وWebP مباشرة وحمّل كل صورة على حدة أو الكل في ملف ZIP.",
     metaDescription:
       "أداة ضغط صور مجانية وسريعة تعمل داخل المتصفح بأمان وخصوصية تامة، تدعم JPG وPNG وWebP مع خيار التنزيل المجمع ZIP.",
-    icon: "image-down",
+    icon: ImageDown,
+    iconName: "image-down",
     published: true,
-    keywords: ["ضغط الصور", "تصغير حجم الصورة", "ضغط png", "ضغط jpg", "ضغط webp"],
+    keywords: [
+      "ضغط الصور",
+      "تصغير حجم الصورة",
+      "ضغط png",
+      "ضغط jpg",
+      "ضغط webp",
+    ],
   },
   {
     slug: "document-scanner",
     catId: "images",
-    title: "الماسح الضوئي",
-    shortDescription:
-      "مسح المستندات وتحديد حوافها وتصحيح انحرافها وفلترتها محلياً داخل جهازك دون رفع أي بيانات.",
+    title: "ماسح المستندات",
+    shortDescription: "مسح المستندات وتحديد حوافها وتصحيح انحرافها وفلترتها.",
     metaDescription:
       "أداة ماسح ضوئي مجانية تعمل داخل المتصفح لاقتصاص وتعديل وفلترة المستندات والأوراق بأمان وسرية تامة دون رفعها لأي خادم.",
-    icon: "scan",
+    icon: Scan,
+    iconName: "scan",
     published: true,
     keywords: [
       "ماسح ضوئي",
@@ -52,11 +62,11 @@ export const TOOLS: Tool[] = [
     slug: "qr-generator",
     catId: "daily",
     title: "مولد رموز QR",
-    shortDescription:
-      "إنشاء رموز استجابة سريعة فورية للروابط، النصوص، وشبكات الواي فاي مجاناً.",
+    shortDescription: "إنشاء رموز استجابة سريعة فورية للروابط الانترنت",
     metaDescription:
       "أداة مجانية لتوليد باركود QR Code عالي الدقة دون أي اتصال بخوادم خارجية.",
-    icon: "qr-code",
+    icon: QrCode,
+    iconName: "qr-code",
     published: true,
     keywords: ["صانع qr code", "توليد باركود", "مولد رمز الاستجابة السريعة"],
   },
@@ -68,7 +78,8 @@ export const TOOLS: Tool[] = [
       "إحصاء دقيق لعدد الكلمات، الحروف، الفقرات وزمن القراءة للنصوص العربية.",
     metaDescription:
       "أداة مجانية لعد الكلمات والحروف والأسطر في النصوص العربية مع خيارات تنظيف وتجريد التشكيل.",
-    icon: "cake",
+    iconName: "cake",
+
     published: true,
     keywords: [
       "عداد الكلمات",
@@ -85,21 +96,9 @@ export const TOOLS: Tool[] = [
       "احسب الخصومات، الضرائب، وزيادة أو نقصان النسب بسهولة وبشكل فوري.",
     metaDescription:
       "حاسبة سريعة لحساب النسب المئوية، الخصم، وضريبة القيمة المضافة مباشرة.",
-    icon: "cake",
+    iconName: "cake",
     published: true,
     keywords: ["حساب النسبة المئوية", "حاسبة الخصم", "حساب الضريبة"],
-  },
-  {
-    slug: "date-difference",
-    catId: "calculators",
-    title: "حساب الفرق بين تاريخين",
-    shortDescription:
-      "معرفة عدد الأيام، الأسابيع، والشهور الفاصلة بين أي تاريخين بدقة.",
-    metaDescription:
-      "أداة لحساب الفرق الزمني بين تاريخين بالسنوات والأشهر والأيام والأسابيع.",
-    icon: "cake",
-    published: true,
-    keywords: ["فرق التاريخين", "كم باقي يوم", "حساب المدة بين تاريخين"],
   },
   {
     slug: "text-cleaner",
@@ -109,21 +108,9 @@ export const TOOLS: Tool[] = [
       "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
     metaDescription:
       "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
-    icon: "cake",
+    iconName: "cake",
     published: true,
     keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
-  },
-  {
-    slug: "unit-converter",
-    catId: "converters",
-    title: "محول وحدات القياس",
-    shortDescription:
-      "تحويل فوري وشامل لوحدات الطول، الوزن، المساحة، والحرارة.",
-    metaDescription:
-      "محول وحدات مجاني وسريع للتحويل بين المتر والبوصة، الكيلوجرام والباوند، وغيرها.",
-    icon: "cake",
-    published: true,
-    keywords: ["تحويل وحدات", "محول الطول", "محول الوزن"],
   },
 ];
 

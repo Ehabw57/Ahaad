@@ -1,12 +1,12 @@
 import type { ComponentType } from "preact";
 import type { LucideProps } from "lucide-preact";
-import { X } from "lucide-preact";
+import {BadgeQuestionMark as X} from "lucide-preact";
 
 interface ToolCardProps {
   slug: string;
   title: string;
   shortDescription: string;
-  icon: ComponentType<LucideProps>;
+  icon?: ComponentType<LucideProps>;
   catId: string;
   /** Even = filled, odd = outlined */
   index: number;

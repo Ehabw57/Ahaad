@@ -1,10 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ToolShell from "../../components/ToolShell.astro";
-import AgeCalculator from "../../tools/age-calculator/AgeCalculator.tsx";
-import QrGenerator from "../../tools/qr-generator/QrGenerator.tsx";
-import ImageCompressor from "../../tools/image-compressor/ImageCompressor.tsx";
-import DocumentScanner from "../../tools/document-scanner/DocumentScanner.tsx";
+import ToolRendrer from "../../components/ToolRendrer.astro";
 import { TOOLS } from "../../data/tools.ts";
 import type { Tool } from "../../types/index.ts";
 
@@ -21,6 +18,8 @@ interface Props {
 }
 
 const { tool } = Astro.props;
+const ToolComponent = tool.component;
+console.log(ToolComponent);
 ---
 
 <Layout
@@ -35,29 +34,9 @@ const { tool } = Astro.props;
         shortDescription={tool.shortDescription}
         toolDescription={tool.metaDescription}
         catId={tool.catId}
-        icon={tool.icon}
+        icon={tool.iconName}
       >
-        {
-          tool.slug === "age-calculator" ? (
-            <AgeCalculator client:load />
-          ) : tool.slug === "qr-generator" ? (
-            <QrGenerator client:load />
-          ) : tool.slug === "image-compressor" ? (
-            <ImageCompressor client:load />
-          ) : tool.slug === "document-scanner" ? (
-            <DocumentScanner client:load />
-          ) : (
-            <div class="w-full p-12 rounded-2xl border border-dashed border-border text-center flex flex-col items-center justify-center gap-3 bg-surface">
-              <h3 class="text-base font-bold text-text-primary">
-                هذه الأداة قيد التطوير
-              </h3>
-              <p class="text-xs sm:text-sm text-text-secondary max-w-md">
-                نعمل حالياً على إطلاق هذه الأداة وفق أعلى معايير الدقة والسرعة
-                والخصوصية.
-              </p>
-            </div>
-          )
-        }
+        <ToolRendrer slug={tool.slug} />
       </ToolShell>
     </main>
   </div>

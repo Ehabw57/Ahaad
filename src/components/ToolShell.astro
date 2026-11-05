@@ -66,11 +66,11 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
         </p>
       </div>
     </div>
-    <p
+    <!-- <p
       class="text-sm sm:text-base text-text-secondary max-w-3xl leading-relaxed mt-1"
     >
       {toolDescription}
-    </p>
+    </p> -->
   </header>
 
   <!-- Tool Interactive Workspace Island Container -->
@@ -107,7 +107,7 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
           {otherTools.map((tool, i) => (
             <ToolCard
               slug={tool.slug}
-              // icon={}
+              icon={tool.icon}
               title={tool.title}
               shortDescription={tool.shortDescription}
               catId={tool.catId}

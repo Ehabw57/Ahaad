@@ -49,7 +49,7 @@ export default function SearchTools() {
           <>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4">
               {filteredTools.slice(0, 6).map((tool, index) => (
-                <ToolCard key={tool.slug} {...tool} icon={X} index={index} />
+                <ToolCard key={tool.slug} {...tool} icon={tool.icon} index={index} />
               ))}
             </div>
             {filteredTools.length > 6 && (
