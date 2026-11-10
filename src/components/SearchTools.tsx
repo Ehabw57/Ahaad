@@ -1,12 +1,13 @@
 import { useMemo, useState } from "preact/hooks";
-import { X, SearchX, ArrowLeft } from "lucide-preact";
+import { ArrowLeft } from "lucide-preact";
+import { TOOLS } from "../data/tools";
 
 import SearchFilter from "./SearchFilter";
 import CategoryPills from "./ui/CategoryPills";
 import ToolCard from "./ToolCard";
 
-import { TOOLS } from "../data/tools";
-("all");
+import { matchTool } from "../utils/toolSearch";
+import EmptyTools from "./ui/EmptyTools";
 
 export default function SearchTools() {
   const [query, setQuery] = useState("");
@@ -14,16 +15,9 @@ export default function SearchTools() {
 
   // Filter tools based on search query and selected category
   const filteredTools = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-
     return TOOLS.filter((tool) => {
       const matchesCategory = chosenCat === "all" || tool.catId === chosenCat;
-
-      const searchableText =
-        `${tool.title} ${tool.shortDescription}`.toLowerCase();
-
-      const matchesQuery =
-        normalizedQuery === "" || searchableText.includes(normalizedQuery);
+      const matchesQuery = matchTool(tool, query);
 
       return matchesCategory && matchesQuery;
     });
@@ -32,7 +26,7 @@ export default function SearchTools() {
   const totalFound = filteredTools.length;
 
   return (
-    <>
+    <div class="flex flex-col gap-5">
       {/* Search */}
       <SearchFilter query={query} setQuery={setQuery} />
 
@@ -49,44 +43,27 @@ export default function SearchTools() {
           <>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4">
               {filteredTools.slice(0, 6).map((tool, index) => (
-                <ToolCard key={tool.slug} {...tool} icon={tool.icon} index={index} />
+                <ToolCard
+                  key={tool.slug}
+                  {...tool}
+                  icon={tool.icon}
+                  index={index}
+                />
               ))}
             </div>
             {filteredTools.length > 6 && (
               <a
-                href="/category"
+                href="/tools"
                 class="flex items-center mx-auto my-6 w-50 gap-2 px-6 py-3 bg-surface text-text-primary font-semibold text-sm border border-border hover:border-border-hover transition-colors"
               >
-                {" "}
-                <span>عرض جميع الأدوات</span> <ArrowLeft size={19} />{" "}
+                <span>عرض جميع الأدوات</span> <ArrowLeft size={19} />
               </a>
             )}
           </>
         ) : (
-          <div
-            class="flex flex-col items-center justify-center text-center py-8 px-4"
-            role="status"
-            aria-live="polite"
-          >
-            <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-surface text-text-secondary border border-border mb-4">
-              <SearchX size={40} />
-            </div>
-            <h3 class="text-base font-semibold text-text-primary mb-1">
-              لم نجد أي أداة مطابقة
-            </h3>
-            <p class="text-xs sm:text-sm text-text-secondary max-w-sm mb-5 leading-normal">
-              جرّب البحث بكلمات أخرى أو تصفح كافة التصنيفات المتاحة.
-            </p>
-            <button
-              type="button"
-              class="px-5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-canvas hover:bg-surface text-text-primary border border-border transition-colors cursor-pointer"
-              onClick={() => setQuery("")}
-            >
-              إعادة ضبط البحث والتصنيفات
-            </button>
-          </div>
+          <EmptyTools setQuery={setQuery} />
         )}
       </section>
-    </>
+    </div>
   );
 }

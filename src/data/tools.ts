@@ -1,6 +1,5 @@
-import { Cake, ImageDown, Scan, QrCode } from "lucide-preact";
+import { Cake, ImageDown, Scan, QrCode, Braces, CircleDollarSign, LoaderPinwheel } from "lucide-preact";
 import type { Tool } from "../types/index.ts";
-import AgeCalculator from "../tools/age-calculator/AgeCalculator.tsx";
 
 export const TOOLS: Tool[] = [
   {
@@ -12,7 +11,6 @@ export const TOOLS: Tool[] = [
       "حاسبة عمر مجانية وسريعة تحسب عمرك الميلادي مع موعد ميلادك القادم.",
     iconName: "cake",
     icon: Cake,
-    component: AgeCalculator,
     published: true,
     keywords: [
       "حساب العمر",
@@ -71,6 +69,68 @@ export const TOOLS: Tool[] = [
     keywords: ["صانع qr code", "توليد باركود", "مولد رمز الاستجابة السريعة"],
   },
   {
+    slug: "coin-flip",
+    catId: "daily",
+    title: "رمي العملة",
+    shortDescription:
+      "ارمِ عملة افتراضية واحصل على ملك أو كتابة بنتيجة عشوائية عادلة.",
+    metaDescription:
+      "ارمِ عملة افتراضية واحصل على ملك أو كتابة بنتيجة عشوائية عادلة، مباشرة من المتصفح وبدون تحميل أي شيء.",
+    icon: CircleDollarSign,
+    iconName: "coins",
+    published: true,
+    keywords: [
+      "رمي العملة",
+      "قرعة",
+      "ملك أو كتابة",
+      "coin flip",
+      "flip a coin",
+      "قرعة عملة",
+    ],
+  },
+  {
+    slug: "random-spinner",
+    catId: "daily",
+    title: "عجلة الأسماء العشوائية",
+    shortDescription: "أضف أسماءك وأدِر العجلة لاختيار اسم عشوائي بعدالة.",
+    metaDescription:
+      "أضف أسماءك وأدِر العجلة لاختيار اسم عشوائي بعدالة، مباشرة من المتصفح.",
+    icon: LoaderPinwheel,
+    iconName: "disc-3",
+    published: true,
+    keywords: [
+      "عجلة الأسماء",
+      "قرعة إلكترونية",
+      "عجلة الحظ",
+      "اختيار عشوائي",
+      "random spinner",
+      "wheel spinner",
+      "قرعة أسماء",
+    ],
+  },
+  {
+    slug: "json-formatter",
+    catId: "text",
+    title: "منسّق JSON",
+    shortDescription:
+      "نسّق ملفات JSON وأظهرها كنص أو شجرة قابلة للطي مع تحديد مكان الخطأ بدقة.",
+    metaDescription:
+      "أداة مجانية لتنسيق والتحقق من صحة JSON وعرضه كنص أو شجرة تفاعلية داخل المتصفح بأمان وخصوصية تامة.",
+    icon: Braces,
+    iconName: "braces",
+    published: true,
+    keywords: [
+      "json",
+      "تنسيق json",
+      "منسق جيسون",
+      "json formatter",
+      "json beautify",
+      "json viewer",
+      "مصحح json",
+      "فاحص json",
+    ],
+  },
+  {
     slug: "word-counter",
     catId: "text",
     title: "عداد الكلمات والحروف",
@@ -112,12 +172,168 @@ export const TOOLS: Tool[] = [
     published: true,
     keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
   },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
+  {
+    slug: "text-cleaner",
+    catId: "text",
+    title: "منظف ومنسق النصوص",
+    shortDescription:
+      "حذف التشكيل، توحيد الهمزات والياءات، وإزالة المسافات الزائدة من النص.",
+    metaDescription:
+      "أداة لتنظيف ومعالجة النصوص العربية وتوحيد حروف الألف والياء وإزالة الحركات الزائدة.",
+    iconName: "cake",
+    published: true,
+    keywords: ["إزالة التشكيل", "تنظيف النص", "تنسيق اللغة العربية"],
+  },
 ];
 
-export function getToolBySlug(slug: string): Tool | undefined {
-  return TOOLS.find((t) => t.slug === slug && t.published);
-}
+// export function getToolBySlug(slug: string): Tool | undefined {
+//   return TOOLS.find((t) => t.slug === slug && t.published);
+// }
 
-export function getToolsByCategory(catId: string): Tool[] {
-  return TOOLS.filter((t) => t.catId === catId && t.published);
-}
+// export function getToolsByCategory(catId: string): Tool[] {
+//   return TOOLS.filter((t) => t.catId === catId && t.published);
+// }

@@ -3,6 +3,9 @@ import AgeCalculator from "../tools/age-calculator/AgeCalculator";
 import QrGenerator from "../tools/qr-generator/QrGenerator";
 import ImageCompressor from "../tools/image-compressor/ImageCompressor";
 import DocumentScanner from "../tools/document-scanner/DocumentScanner";
+import JsonFormatter from "../tools/json-formatter/JsonFormatter";
+import CoinFlip from "../tools/coin-flip/CoinFlip";
+import RandomSpinner from "../tools/random-spinner/RandomSpinner";
 
 interface Props {
   slug: string;
@@ -20,6 +23,12 @@ const { slug } = Astro.props;
     <ImageCompressor client:load />
   ) : slug === "document-scanner" ? (
     <DocumentScanner client:load />
+  ) : slug === "json-formatter" ? (
+    <JsonFormatter client:load />
+  ) : slug === "coin-flip" ? (
+    <CoinFlip client:load />
+  ) : slug === "random-spinner" ? (
+    <RandomSpinner client:load />
   ) : (
     <div class="w-full p-12 rounded-2xl border border-dashed border-border text-center flex flex-col items-center justify-center gap-3 bg-surface">
       <h3 class="text-base font-bold text-text-primary">

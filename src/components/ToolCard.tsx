@@ -1,6 +1,6 @@
 import type { ComponentType } from "preact";
 import type { LucideProps } from "lucide-preact";
-import {BadgeQuestionMark as X} from "lucide-preact";
+import { BadgeQuestionMark as Unknown } from "lucide-preact";
 
 interface ToolCardProps {
   slug: string;
@@ -9,16 +9,22 @@ interface ToolCardProps {
   icon?: ComponentType<LucideProps>;
   catId: string;
   /** Even = filled, odd = outlined */
-  index: number;
+  index?: number;
+  headingLevel?: "h2" | "h3";
+  rounded?: "sm" | "md" | "2xl";
+  dataCollapsed?: boolean;
 }
 
 export default function ToolCard({
   slug,
   title,
   shortDescription,
-  icon: Icon = X,
+  icon: Icon = Unknown,
   catId,
-  index,
+  index = 0,
+  headingLevel = "h3",
+  rounded = "sm",
+  dataCollapsed,
 }: ToolCardProps) {
   const isFilledIcon = index % 2 === 0;
 
@@ -26,15 +32,18 @@ export default function ToolCard({
     ? "bg-text-primary text-canvas"
     : "bg-surface text-text-primary border border-border";
 
+  const HeadingTag = headingLevel;
+
   return (
     <article
-      class="group"
+      class="group h-full"
       data-category={catId}
       data-name={`${title} ${shortDescription}`}
+      data-collapsed={dataCollapsed ? "true" : undefined}
     >
       <a
         href={`/tools/${slug}`}
-        class="flex flex-col p-5 sm:p-6 rounded-md bg-surface border border-border hover:border-border-hover transition-colors duration-200 min-h-44 h-full"
+        class={`flex flex-col p-5 sm:p-6 rounded-${rounded} bg-surface border border-border hover:border-border-hover transition-colors duration-200 min-h-44 h-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`}
       >
         {/* Icon Badge */}
         <div class="mb-4">
@@ -46,11 +55,11 @@ export default function ToolCard({
         </div>
 
         {/* Content */}
-        <h3 class="text-text-primary font-bold text-base mb-1.5 group-hover:text-accent transition-colors leading-snug">
+        <HeadingTag class="text-text-primary font-bold text-base mb-1.5 group-hover:text-accent transition-colors leading-snug">
           {title}
-        </h3>
+        </HeadingTag>
 
-        <p class="text-text-secondary text-xs leading-relaxed line-clamp-2">
+        <p class="text-text-secondary text-xs sm:text-sm leading-relaxed line-clamp-2">
           {shortDescription}
         </p>
       </a>
