@@ -7,12 +7,18 @@ interface Props {
   title?: string;
   description?: string;
   canonicalURL?: string;
+  ogType?: string;
+  articleModifiedTime?: string;
+  noindex?: boolean;
 }
 
 const {
   title = "آحاد — أدوات ويب عربية مفيدة وسريعة",
   description = "منصة عربية خفيفة وسريعة تجمع أدوات الويب اليومية المفيدة في مكان واحد بسيط وآمن.",
   canonicalURL = Astro.url.href,
+  ogType = "website",
+  articleModifiedTime,
+  noindex = false,
 } = Astro.props;
 
 const siteName = "أَحاد";
@@ -28,6 +34,7 @@ const ogImage = "/og-image.png";
     <!-- Zero FOUC: run before render to apply saved/OS theme -->
     <script is:inline>
       (function () {
+        document.documentElement.classList.add("js");
         var stored = localStorage.getItem("ahaad-theme");
         var prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)",
@@ -55,15 +62,24 @@ const ogImage = "/og-image.png";
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="ar_SA" />
+    {
+      ogType === "article" && articleModifiedTime && (
+        <meta
+          property="article:modified_time"
+          content={articleModifiedTime}
+        />
+      )
+    }
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -73,8 +89,17 @@ const ogImage = "/og-image.png";
 
     <!-- Generator tag -->
     <meta name="generator" content={Astro.generator} />
+
+    <slot name="head" />
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-lg focus:shadow-md"
+    >
+      الانتقال إلى المحتوى الرئيسي
+    </a>
+
     {canonicalURL != "404" && <Header />}
 
     <slot />

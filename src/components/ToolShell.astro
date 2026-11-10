@@ -13,6 +13,7 @@ const {
   toolDescription,
   catId,
   icon = "iconHolder",
+  hasGuide = false,
 } = Astro.props;
 const category = CATEGORIES[catId] || { name: "الأدوات", icon: "sparkles" };
 
@@ -74,9 +75,28 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
   </header>
 
   <!-- Tool Interactive Workspace Island Container -->
-  <main class="w-full">
+  <section class="w-full" aria-label="مساحة عمل الأداة">
     <slot />
-  </main>
+  </section>
+
+  {
+    hasGuide && (
+      <div class="flex items-center justify-start pt-1">
+        <a
+          href={`/tool-guide/${slug}`}
+          class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors p-3 rounded-lg border border-border hover:border-border-hover bg-surface min-h-11 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          <Icon name="lucide:book-open" class="size-4.5" aria-hidden="true" />
+          <span>كيف تستخدم هذه الأداة؟ اقرأ الدليل</span>
+          <Icon
+            name="lucide:arrow-left"
+            class="size-4 rtl:rotate-0 ltr:rotate-180"
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+    )
+  }
 
   <!-- Separation Line -->
   <div class="w-full h-px bg-border my-2"></div>

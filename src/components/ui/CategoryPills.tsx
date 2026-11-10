@@ -1,4 +1,4 @@
-import { CATEGORIES_LIST } from "../../data/categories";
+import { CATEGORIES } from "../../data/categories";
 
 interface CategoryPillsProps {
   totalFound: number;
@@ -36,7 +36,7 @@ export default function CategoryPills({
         </button>
 
         {/* Category pills */}
-        {CATEGORIES_LIST.map((cat) => {
+        {CATEGORIES.map((cat) => {
           const isActive = chosen === cat.catId;
           return (
             <button

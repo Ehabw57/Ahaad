@@ -2,24 +2,26 @@
 import Layout from "../../layouts/Layout.astro";
 import ToolShell from "../../components/ToolShell.astro";
 import ToolRendrer from "../../components/ToolRendrer.astro";
+import { getCollection } from "astro:content";
 import { TOOLS } from "../../data/tools.ts";
 import type { Tool } from "../../types/index.ts";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const guides = await getCollection("tool-guides");
+  const guideSlugSet = new Set(guides.map((g) => g.id));
   const publishedTools = TOOLS.filter((t) => t.published);
   return publishedTools.map((tool) => ({
     params: { slug: tool.slug },
-    props: { tool },
+    props: { tool, hasGuide: guideSlugSet.has(tool.slug) },
   }));
 }
 
 interface Props {
   tool: Tool;
+  hasGuide: boolean;
 }
 
-const { tool } = Astro.props;
-const ToolComponent = tool.component;
-console.log(ToolComponent);
+const { tool, hasGuide } = Astro.props;
 ---
 
 <Layout
@@ -27,7 +29,7 @@ console.log(ToolComponent);
   description={tool.metaDescription || tool.shortDescription}
 >
   <div class="flex flex-col min-h-svh">
-    <main class="flex-1 w-full bg-canvas text-text-primary">
+    <main id="main-content" class="flex-1 w-full bg-canvas text-text-primary">
       <ToolShell
         slug={tool.slug}
         title={tool.title}
@@ -35,6 +37,7 @@ console.log(ToolComponent);
         toolDescription={tool.metaDescription}
         catId={tool.catId}
         icon={tool.iconName}
+        hasGuide={hasGuide}
       >
         <ToolRendrer slug={tool.slug} />
       </ToolShell>

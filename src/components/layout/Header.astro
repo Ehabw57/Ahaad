@@ -3,18 +3,18 @@
 // Theme toggle button triggers are handled by a shared script in each page.
 import { Icon } from "astro-icon/components";
 
+const navLinks = [
+  { href: "/", label: "الرئيسية" },
+  { href: "/tools", label: "الأدوات" },
+  { href: "/tool-guide", label: "أدلة الأدوات" },
+  { href: "/about", label: "عن المنصة" },
+];
+const navLinkClass = "hover:text-text-primary text-sm transition-colors";
+const activeLinkClass = "text-primary font-semibold";
 const pathname = Astro.url.pathname;
-const isAbout = pathname === "/about" || pathname === "/about/";
-const isHome = !isAbout && (pathname === "/" || pathname === "");
-const isFavorite =
-  !isAbout && (pathname === "/favorite" || pathname === "/favorite/");
-const isCategory =
-  !isAbout && (pathname === "/#categories" || pathname === "/#categories/");
 ---
 
-<header
-  class="sticky top-0 z-40 bg-canvas/95 backdrop-blur-sm "
->
+<header class="sticky top-0 z-40 bg-canvas/95 backdrop-blur-sm">
   <div
     class="max-w-285 mx-auto px-4 md:mt-10 sm:px-8 flex items-center justify-between h-16 gap-4"
   >
@@ -31,35 +31,26 @@ const isCategory =
     </a>
 
     <!-- Desktop Navigation -->
-    <div class="flex gap-20">
+    <div class="flex items-center gap-6 lg:gap-10">
       <nav
-        class="hidden md:flex items-center gap-8"
+        class="hidden md:flex items-center gap-5 lg:gap-7"
         aria-label="التنقل الرئيسي"
       >
-        <a
-          href="/"
-          class={`text-sm transition-colors ${isHome ? "text-text-primary font-semibold" : "text-text-secondary hover:text-text-primary font-medium"}`}
-        >
-          الرئيسية
-        </a>
-        <a
-          href="/#categories"
-          class={`text-sm transition-colors ${isCategory ? "text-text-primary font-semibold" : "text-text-secondary hover:text-text-primary font-medium"}`}
-        >
-          التصنيفات
-        </a>
-        <a
-          href="/about"
-          class={`text-sm transition-colors ${isAbout ? "text-text-primary font-semibold" : "text-text-secondary hover:text-text-primary font-medium"}`}
-        >
-          عن المنصة
-        </a>
-        <a
-          href="/favorite"
-          class={`text-sm transition-colors ${isFavorite ? "text-text-primary font-semibold" : "text-text-secondary hover:text-text-primary font-medium"}`}
-        >
-          المفضله
-        </a>
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class={`${
+                navLinkClass +
+                (pathname === link.href || pathname === link.href + "/"
+                  ? activeLinkClass
+                  : "font-medium text-text-secondary")
+              }`}
+            >
+              {link.label}
+            </a>
+          ))
+        }
       </nav>
 
       <!-- Actions -->
@@ -83,43 +74,29 @@ const isCategory =
             aria-label="فتح قائمة التنقل"
             class="list-none flex items-center justify-center rounded-xl size-9 bg-surface hover:bg-surface-subtle text-text-primary border border-border transition-colors cursor-pointer [&::-webkit-details-marker]:hidden"
           >
-            <!-- Burger icon -->
-            <span class="flex flex-col items-center justify-center gap-1">
-              <span class="block w-4 h-0.5 bg-current rounded-full"></span>
-              <span class="block w-4 h-0.5 bg-current rounded-full"></span>
-              <span class="block w-4 h-0.5 bg-current rounded-full"></span>
-            </span>
+            <Icon name={"lucide:menu"} size={25} />
           </summary>
 
           <!-- Dropdown -->
           <nav
             aria-label="التنقل الرئيسي"
-            class="absolute left-0 top-full mt-2 w-48 p-2 rounded-xl bg-canvas border border-border shadow-lg flex flex-col gap-1"
+            class="absolute left-0 top-full mt-2 w-48 p-5 rounded-sm bg-canvas border border-border shadow-lg flex flex-col gap-3"
           >
-            <a
-              href="/"
-              class="rounded-lg px-3 py-2.5 text-text-secondary hover:bg-surface hover:text-text-primary text-sm font-medium transition-colors"
-            >
-              الرئيسية
-            </a>
-            <a
-              href="/#categories"
-              class={`text-sm transition-colors ${isCategory ? "text-text-primary font-semibold" : "text-text-secondary hover:text-text-primary font-medium"}`}
-            >
-              التصنيفات
-            </a>
-            <a
-              href="/about"
-              class={`rounded-lg px-3 py-2.5 text-sm transition-colors ${isAbout ? "bg-surface-subtle text-text-primary font-semibold" : "text-text-secondary hover:bg-surface hover:text-text-primary font-medium"}`}
-            >
-              عن المنصة
-            </a>
-            <a
-              href="/favorite"
-              class={`text-sm transition-colors ${isFavorite ? "text-text-primary font-semibold" : "text-text-secondary hover:text-text-primary font-medium"}`}
-            >
-              المفضله
-            </a>
+            {
+              navLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class={`${
+                    navLinkClass +
+                    (pathname === link.href || pathname === link.href + "/"
+                      ? activeLinkClass
+                      : "font-medium text-text-secondary")
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))
+            }
           </nav>
         </details>
       </div>

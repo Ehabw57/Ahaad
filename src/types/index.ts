@@ -12,7 +12,6 @@ export interface Tool {
   metaDescription: string;
   icon?: ComponentType<LucideProps>;
   iconName: string;
-  component?: ComponentType,
   published: boolean;
   keywords: string[];
 }

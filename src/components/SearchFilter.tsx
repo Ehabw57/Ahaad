@@ -7,12 +7,12 @@ interface SearchFilterProps {
 
 export default function SearchFilter({ query, setQuery }: SearchFilterProps) {
   return (
-    <section class="relative w-full px-4">
+    <section class="relative w-full">
       <label class="sr-only" for="toolSearchInput">
         ابحث عن أداة
       </label>
 
-      <div class="relative mx-auto flex items-center mb-10 lg:max-w-2xl h-14 rounded-lg border border-border bg-surface shadow-xs focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/10 transition-all">
+      <div class="relative mx-auto flex items-center  lg:max-w-2xl h-14 rounded-lg border border-border bg-surface shadow-xs focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/10 transition-all">
         {/* Search icon */}
         <div
           class="flex items-center justify-center ps-4 pe-2 text-text-secondary pointer-events-none shrink-0"
