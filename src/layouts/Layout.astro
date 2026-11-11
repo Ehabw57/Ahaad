@@ -74,10 +74,7 @@ const ogImage = "/og-image.png";
     <meta property="og:locale" content="ar_SA" />
     {
       ogType === "article" && articleModifiedTime && (
-        <meta
-          property="article:modified_time"
-          content={articleModifiedTime}
-        />
+        <meta property="article:modified_time" content={articleModifiedTime} />
       )
     }
 
@@ -95,7 +92,7 @@ const ogImage = "/og-image.png";
   <body>
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-lg focus:shadow-md"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:inset-s-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-lg focus:shadow-md"
     >
       الانتقال إلى المحتوى الرئيسي
     </a>

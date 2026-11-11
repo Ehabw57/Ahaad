@@ -1,0 +1,41 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  faq: FaqItem[];
+}
+
+const { faq } = Astro.props;
+---
+
+{
+  faq && faq.length > 0 && (
+    <section class="flex flex-col gap-4 pt-6 border-t border-border" aria-labelledby="guide-faq-heading">
+      <h2 id="guide-faq-heading" class="text-xl sm:text-2xl font-bold text-text-primary">
+        الأسئلة الشائعة
+      </h2>
+      <div class="flex flex-col gap-3">
+        {faq.map((item) => (
+          <details class="group bg-surface rounded-sm border border-border p-4 transition-colors hover:border-border-hover">
+            <summary class="flex items-center justify-between gap-4 font-semibold text-text-primary cursor-pointer min-h-11 select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-sm">
+              <span class="text-sm sm:text-base">{item.q}</span>
+              <Icon
+                name="lucide:chevron-down"
+                class="size-5 shrink-0 text-text-secondary transition-transform duration-200 group-open:rotate-180"
+                aria-hidden="true"
+              />
+            </summary>
+            <p class="mt-3 pt-3 border-t border-border text-sm text-text-secondary leading-relaxed">
+              {item.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}

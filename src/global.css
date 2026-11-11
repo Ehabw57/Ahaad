@@ -2,8 +2,6 @@
 @source "./components/ui";
 @source "./components/layout";
 
-
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ─────────────────────────────────────────────
@@ -11,32 +9,32 @@
    Files must be placed in public/fonts/
    ───────────────────────────────────────────── */
 @font-face {
-  font-family: 'IBM Plex Sans Arabic';
+  font-family: "IBM Plex Sans Arabic";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/IBMPlexSansArabic-Regular.woff2') format('woff2');
+  src: url("/fonts/IBMPlexSansArabic-Regular.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'IBM Plex Sans Arabic';
+  font-family: "IBM Plex Sans Arabic";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('/fonts/IBMPlexSansArabic-Medium.woff2') format('woff2');
+  src: url("/fonts/IBMPlexSansArabic-Medium.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'IBM Plex Sans Arabic';
+  font-family: "IBM Plex Sans Arabic";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/IBMPlexSansArabic-SemiBold.woff2') format('woff2');
+  src: url("/fonts/IBMPlexSansArabic-SemiBold.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'IBM Plex Sans Arabic';
+  font-family: "IBM Plex Sans Arabic";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/fonts/IBMPlexSansArabic-Bold.woff2') format('woff2');
+  src: url("/fonts/IBMPlexSansArabic-Bold.woff2") format("woff2");
 }
 
 /* ─────────────────────────────────────────────
@@ -46,7 +44,7 @@
    ───────────────────────────────────────────── */
 @theme {
   /* Font stack — Arabic-first */
-  --font-sans: 'IBM Plex Sans Arabic', 'IBM Plex Sans'; 
+  --font-sans: "IBM Plex Sans Arabic", "IBM Plex Sans";
 
   /* Semantic color tokens — resolved at runtime via :root / .dark */
   --color-canvas: var(--canvas);
@@ -91,12 +89,12 @@
   --color-slate-50: #f8f9fa;
 
   /* Border radii (DESIGN.md) */
-  --radius-sm:   0.25rem;   /*  4px */
-  --radius:      0.5rem;    /*  8px */
-  --radius-md:   0.75rem;   /* 12px */
-  --radius-lg:   1rem;      /* 16px */
-  --radius-xl:   1.5rem;    /* 24px */
-  --radius-2xl:  1.75rem;   /* 28px — used for tool cards */
+  --radius-sm: 0.25rem; /*  4px */
+  --radius: 0.5rem; /*  8px */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
+  --radius-2xl: 1.75rem; /* 28px — used for tool cards */
   --radius-full: 9999px;
 }
 
@@ -104,22 +102,22 @@
    :root — Light mode values
    ───────────────────────────────────────────── */
 :root {
-  --canvas:            #f7f7fa;
-  --surface:           #fdfdfd;
-  --surface-subtle:    #f7f7fa;
+  --canvas: #f7f7fa;
+  --surface: #fdfdfd;
+  --surface-subtle: #f7f7fa;
   --surface-container: #e9edff;
-  --border:            #e5e7eb;
-  --border-hover:      #94a3b8;
-  --text-primary:      #111827;
-  --text-secondary:    #6b7280;
-  --text-unactive:     #9ba2b0;
-  --unactive:          #9ba2b0;
-  --accent:            #232a39;
-  --accent-hover:      #020202;
-  --accent-container:  #d5e3fc;
+  --border: #e5e7eb;
+  --border-hover: #94a3b8;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-unactive: #9ba2b0;
+  --unactive: #9ba2b0;
+  --accent: #232a39;
+  --accent-hover: #020202;
+  --accent-container: #d5e3fc;
   --accent-foreground: #ffffff;
-  --error:             #ba1a1a;
-  --error-container:   #ffdad6;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
 }
 
 /* ─────────────────────────────────────────────
@@ -127,20 +125,20 @@
    Applied by toggling .dark on <html>
    ───────────────────────────────────────────── */
 .dark {
-  --canvas:            #0f172a;
-  --surface:           #1e293b;
-  --surface-subtle:    #162032;
+  --canvas: #0f172a;
+  --surface: #1e293b;
+  --surface-subtle: #162032;
   --surface-container: #293040;
-  --border:            #334155;
-  --border-hover:      #64748b;
-  --text-primary:      #f8fafc;
-  --text-secondary:    #94a3b8;
-  --accent:            #38bdf8;
-  --accent-hover:      #7dd3fc;
-  --accent-container:  #1e3a5f;
+  --border: #334155;
+  --border-hover: #64748b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --accent-container: #1e3a5f;
   --accent-foreground: #0f172a;
-  --error:             #ffb4ab;
-  --error-container:   #93000a;
+  --error: #ffb4ab;
+  --error-container: #93000a;
 }
 
 /* ─────────────────────────────────────────────
@@ -169,8 +167,122 @@ body {
 /* ─────────────────────────────────────────────
    Utility — hide scrollbar for category swipe rail
    ───────────────────────────────────────────── */
-.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ─────────────────────────────────────────────
+   Coin Flip Tool Animations (coinflip.md §4, §6)
+   ───────────────────────────────────────────── */
+@keyframes coin-jump {
+  0% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-28px);
+  }
+  85% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes coin-half-turn {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.06);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-coin-jump {
+  animation: coin-jump var(--jump-duration, 1100ms)
+    cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.animate-coin-flip {
+  animation: coin-half-turn 140ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-coin-jump,
+  .animate-coin-flip {
+    animation: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Guide Prose Styles (for Markdown content)
+   ───────────────────────────────────────────── */
+
+.guide-prose {
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+.guide-prose h2,
+.guide-prose h3 {
+  margin-top: 2rem;
+  scroll-margin-top: 5rem; /* offset for sticky header */
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 1.25rem; 
+}
+.guide-prose p,
+.guide-prose ol,
+.guide-prose ul,
+.guide-prose blockquote {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+.guide-prose a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.guide-prose code,
+.guide-prose pre {
+  font-family: monospace;
+  background: var(--border);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+}
+.guide-prose pre {
+  overflow-x: auto;
+  padding: 1rem;
+}
+.guide-prose table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.guide-prose img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+.guide-prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
+.guide-prose[dir="rtl"] ol {
+  list-style-type: decimal; /* keep western digits; Arabic‑Indic optional */
+}
+.guide-prose bdi,
+.guide-prose [dir="ltr"] {
+  direction: ltr;
+  unicode-bidi: embed;
 }

@@ -1,0 +1,108 @@
+---
+/**
+ * @file tool-guide/index.astro
+ * @description This is the main page for the tool guides section. It lists all the tools that have guides available, grouped by category.
+ *  Each tool is displayed with its title, description, and a link to its guide if available.
+ */
+import { TOOLS } from "../../data/tools.ts";
+import { CATEGORIES } from "../../data/categories.ts";
+import Layout from "../../layouts/Layout.astro";
+import GuideCategorySection from "../../components/guide/GuideCategorySection.astro";
+import { getCollection } from "astro:content";
+import { matchGuides } from "../../utils/toolGuides.ts";
+import { groupByCategory } from "../../utils/toolGroups";
+
+const guides = await getCollection("tool-guides");
+const guideIds = guides.map((g) => g.id);
+
+// Check and warn on orphan guides
+const { orphanGuideIds } = matchGuides(TOOLS, guideIds);
+if (orphanGuideIds.length > 0) {
+  orphanGuideIds.forEach((id) => {
+    console.warn(
+      `[tool-guide] Warning: Guide found for unknown tool slug: "${id}"`,
+    );
+  });
+}
+
+// Build guide map for descriptions and titles
+const guideMap = new Map<string, string>();
+for (const guide of guides) {
+  guideMap.set(guide.id, guide.data.description);
+}
+
+const groupedCategories = groupByCategory(TOOLS, CATEGORIES);
+
+const siteUrl = Astro.site
+  ? Astro.site.href.replace(/\/$/, "")
+  : "https://ahaad.tools";
+const canonicalURL = new URL("/tool-guide", siteUrl).href;
+const pageTitle = "أدلة الأدوات | أحآد";
+const pageDescription =
+  "تعلّم كيف تستخدم كل أداة خطوة بخطوة، مع أمثلة ونصائح وإجابات عن الأسئلة الشائعة.";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL}
+  ogType="website"
+>
+  <main id="main-content" class="w-full bg-canvas min-h-svh py-8 sm:py-12">
+    <div class="max-w-285 mx-auto px-4 sm:px-8 flex flex-col gap-8">
+      <header class="flex flex-col gap-3">
+        <h1
+          class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight"
+        >
+          أدلة الأدوات
+        </h1>
+        <p
+          class="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl"
+        >
+          {pageDescription}
+        </p>
+      </header>
+
+      <div class="flex flex-col gap-5">
+        {
+          groupedCategories.map(({ category, tools }) => (
+            <GuideCategorySection
+              category={category}
+              tools={tools}
+              guideMap={guideMap}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    function initGuideExpanders() {
+      const buttons = document.querySelectorAll(".guide-toggle-btn");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("aria-controls");
+          if (!targetId) return;
+          const target = document.getElementById(targetId);
+          if (!target) return;
+          const isExpanded = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", String(!isExpanded));
+          if (isExpanded) {
+            target.setAttribute("hidden", "");
+            btn.textContent = btn.getAttribute("data-label-collapsed");
+          } else {
+            target.removeAttribute("hidden");
+            btn.textContent = btn.getAttribute("data-label-expanded");
+          }
+        });
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initGuideExpanders);
+    } else {
+      initGuideExpanders();
+    }
+  </script>
+</Layout>

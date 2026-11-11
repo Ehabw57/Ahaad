@@ -1,0 +1,163 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BreadCrumb from "../../components/layout/BreadCrumb.astro";
+import { Icon } from "astro-icon/components";
+import GuideFaq from "../../components/guide/GuideFaq.astro";
+import GuideCard from "../../components/guide/GuideCard.astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { TOOLS } from "../../data/tools.ts";
+import { CATEGORIES } from "../../data/categories.ts";
+import type { Tool } from "../../types/index.ts";
+import { relatedGuides } from "../../utils/toolGuides.ts";
+
+export async function getStaticPaths() {
+  const allGuides = await getCollection("tool-guides");
+  const publishedTools = TOOLS.filter((t) => t.published);
+
+  // Generate paths only for tools that have a guide and are published
+  return allGuides.map((guide) => {
+    const tool = publishedTools.find((t) => t.slug === guide.id)!;
+    return {
+      params: { slug: guide.id },
+      props: {
+        guide,
+        tool,
+        allGuideMap: allGuides.map((g) => ({
+          id: g.id,
+          description: g.data.description,
+        })),
+      },
+    };
+  });
+}
+
+interface Props {
+  guide: CollectionEntry<"tool-guides">;
+  tool: Tool;
+  allGuideMap: { id: string; description: string }[];
+}
+
+const { guide, tool, allGuideMap } = Astro.props;
+const { Content } = await render(guide);
+
+const category = CATEGORIES[tool.catId] || {
+  catId: tool.catId,
+  name: "الأدوات",
+  description: "",
+  icon: "wrench",
+};
+
+const guideIdSet = new Set(allGuideMap.map((g) => g.id));
+const related = relatedGuides(tool.slug, TOOLS, guideIdSet, 3);
+const guideDescriptions = new Map(
+  allGuideMap.map((g) => [g.id, g.description]),
+);
+
+const siteUrl = Astro.site
+  ? Astro.site.href.replace(/\/$/, "")
+  : "https://ahaad.tools";
+const canonicalURL = new URL(`/tool-guide/${tool.slug}`, siteUrl).href;
+
+const pageTitle = `${guide.data.title} | أحآد`;
+const pageDescription = guide.data.description;
+
+const formattedDate = new Intl.DateTimeFormat("ar-EG", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+}).format(guide.data.updated);
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL}
+  ogType="article"
+  articleModifiedTime={guide.data.updated.toISOString()}
+>
+  <main id="main-content" class="w-full bg-canvas min-h-svh py-8 sm:py-12">
+    <div class="max-w-285 mx-auto px-4 sm:px-8 flex flex-col gap-8">
+      <BreadCrumb
+        items={[
+          { label: "الرئيسية", href: "/" },
+          { label: "أدلة الأدوات", href: "/tool-guide" },
+          { label: category.name, href: `/tool-guide#cat-${category.catId}` },
+          { label: tool.title },
+        ]}
+      />
+
+      <article class="flex flex-col gap-8">
+        <header class="flex flex-col gap-3 pb-6 border-b border-border">
+          <h1
+            class="text-2xl sm:text-4xl font-bold text-text-primary tracking-tight leading-tight"
+          >
+            {guide.data.title}
+          </h1>
+          <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+            {guide.data.description}
+          </p>
+          <p
+            class="text-xs sm:text-sm text-text-secondary flex items-center gap-1.5 pt-1"
+          >
+            <span>آخر تحديث:</span>
+            <time datetime={guide.data.updated.toISOString()}>
+              {formattedDate}
+            </time>
+          </p>
+        </header>
+
+        <!-- Markdown prose body -->
+        <div class="guide-prose">
+          <Content />
+        </div>
+
+        <!-- 5. FAQ section -->
+        {guide.data.faq && <GuideFaq faq={guide.data.faq} />}
+
+        <!-- 7. Use-the-tool link-->
+        <a
+          href={`/tools/${tool.slug}`}
+          aria-label={`استخدم ${tool.title}`}
+          class="max-w-60 flex items-center justify-center gap-2.5 px-6 py-3 min-h-11 rounded-sm bg-accent text-accent-foreground hover:bg-accent-hover font-semibold text-base transition-colors duration-200"
+        >
+          <span>استخدم {tool.title}</span>
+          <Icon
+            name="lucide:arrow-left"
+            class="size-5 rtl:rotate-0 ltr:rotate-180"
+            aria-hidden="true"
+          />
+        </a>
+
+        <!-- 7. Related guides section -->
+        {
+          related.length > 0 && (
+            <section
+              class="flex flex-col gap-4 pt-6 border-t border-border"
+              aria-labelledby="related-guides-heading"
+            >
+              <h2
+                id="related-guides-heading"
+                class="text-xl sm:text-2xl font-bold text-text-primary"
+              >
+                أدلة ذات صلة
+              </h2>
+              <nav
+                aria-label="أدلة ذات صلة"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+              >
+                {related.map((relTool) => (
+                  <GuideCard
+                    tool={relTool}
+                    hasGuide={true}
+                    guideDescription={guideDescriptions.get(relTool.slug)}
+                  />
+                ))}
+              </nav>
+            </section>
+          )
+        }
+      </article>
+    </div>
+  </main>
+</Layout>

@@ -1,4 +1,4 @@
-import type { Tool, Category } from "../types";
+import type { Tool } from "../types";
 import { formatCount } from "./toolGuides";
 /**
  * Normalizes Arabic text for search matching:

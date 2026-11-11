@@ -5,6 +5,7 @@ import { Icon } from "astro-icon/components";
 import { CATEGORIES } from "../data/categories.ts";
 import { TOOLS } from "../data/tools.ts";
 import ToolCard from "./ToolCard.tsx";
+import BreadCrumb from "./layout/BreadCrumb.astro";
 
 const {
   slug,
@@ -26,20 +27,13 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
 
 <div class="max-w-285 mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
   <!-- Breadcrumb -->
-  <nav
-    aria-label="مسار التنقل"
-    class="flex items-center gap-2 text-xs sm:text-sm text-text-secondary select-none"
-  >
-    <a href="/" class="hover:text-text-primary transition-colors">الرئيسية</a>
-    <span class="text-border" aria-hidden="true">/</span>
-    <a href={`/#categories`} class="hover:text-text-primary transition-colors"
-      >{category.name}</a
-    >
-    <span class="text-border" aria-hidden="true">/</span>
-    <span class="text-text-primary font-medium" aria-current="page"
-      >{title}</span
-    >
-  </nav>
+  <BreadCrumb
+    items={[
+      { label: "الرئيسية", href: "/" },
+      { label: category.name, href: `/tools#cat-${category.catId}` },
+      { label: title },
+    ]}
+  />
 
   <!-- Tool Header Banner -->
   <header class="flex flex-col gap-3">
@@ -47,7 +41,7 @@ const otherTools = TOOLS.filter((t) => t.published && t.slug !== slug).slice(
       <div
         class="size-12 rounded-2xl bg-accent text-accent-foreground flex items-center justify-center shrink-0 shadow-xs"
       >
-        <Icon name={"lucide:"+icon} class="size-6" />
+        <Icon name={"lucide:" + icon} class="size-6" />
       </div>
       <div class="flex flex-col gap-1">
         <div class="flex items-center gap-2.5 flex-wrap">

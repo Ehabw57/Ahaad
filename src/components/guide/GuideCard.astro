@@ -1,0 +1,66 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Tool } from "../../types/index.ts";
+
+interface Props {
+  tool: Tool;
+  hasGuide: boolean;
+  guideDescription?: string;
+}
+
+const { tool, hasGuide, guideDescription } = Astro.props;
+const summary = guideDescription || tool.shortDescription;
+---
+
+<article class="h-full">
+  {
+    hasGuide ? (
+      <a
+        href={`/tool-guide/${tool.slug}`}
+        class="group flex items-center p-4  rounded-sm bg-surface border border-border hover:border-border-hover transition-colors"
+      >
+        <div class="size-12 rounded-md bg-surface-container text-text-primary flex items-center justify-center border border-border">
+          <Icon
+            name={`lucide:${tool.iconName || "wrench"}`}
+            class="size-6 text-text-primary"
+            aria-hidden="true"
+          />
+        </div>
+        <div class="flex flex-col gap-2 mr-4 flex-1">
+          <h3 class="text-text-primary font-bold text-base leading-snug">
+            {tool.title}
+          </h3>
+          <p class=" text-text-secondary text-xs sm:text-sm leading-relaxed line-clamp-2">
+            {summary}
+          </p>
+        </div>
+          <Icon
+            name="lucide:arrow-left"
+            class="size-4 mr-2"
+            aria-hidden="true"
+          />
+      </a>
+    ) : (
+      <div class="flex p-4 items-center rounded-sm opacity-70 border border-border">
+        <div class="size-12 rounded-md bg-surface-subtle text-text-secondary flex items-center justify-center border border-border">
+          <Icon
+            name={`lucide:${tool.iconName || "wrench"}`}
+            class="size-6 text-text-secondary"
+            aria-hidden="true"
+          />
+        </div>
+        <div class="flex flex-col gap-2 mr-4 flex-1">
+          <h3 class="text-text-primary font-bold text-base leading-snug">
+            {tool.title}
+          </h3>
+          <p class=" text-text-secondary text-xs sm:text-sm leading-relaxed line-clamp-2">
+            {summary}
+          </p>
+        </div>
+        <span class="px-2.5 py-1 text-xs font-medium rounded-sm text-text-secondary">
+          الدليل قريبًا
+        </span>
+      </div>
+    )
+  }
+</article>

@@ -1,0 +1,80 @@
+---
+import type { Tool, Category } from "../../types/index.ts";
+import { formatCount } from "../../utils/toolGuides.ts";
+import { splitCollapsed } from "../../utils/toolGroups";
+import GuideCard from "./GuideCard.astro";
+
+interface Props {
+  category: Category;
+  tools: Tool[];
+  guideMap: Map<string, string>;
+}
+
+const { category, tools, guideMap } = Astro.props;
+const hasExtra = tools.length > 6;
+const { visible, extra } = splitCollapsed(tools, 4);
+const countFormatted = formatCount(tools.length);
+const collapsedLabel = `عرض كل الأدوات (${countFormatted})`;
+const expandedLabel = "إخفاء الأدوات الإضافية";
+const extraId = `cat-${category.catId}-extra`;
+---
+
+<section
+  aria-labelledby={`cat-${category.catId}`}
+  class="flex flex-col gap-6 py-2 "
+>
+  <header class="flex items-center justify-between pb-2 border-b border-border">
+    <h2
+      id={`cat-${category.catId}`}
+      class="scroll-mt-20 text-xl sm:text-2xl font-bold text-text-primary flex items-center gap-2.5"
+    >
+      <span>{category.name}</span>
+      <span class="text-sm font-normal text-text-secondary">
+        ({countFormatted})
+      </span>
+    </h2>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {
+      visible.map((tool) => (
+        <GuideCard
+          tool={tool}
+          hasGuide={guideMap.has(tool.slug)}
+          guideDescription={guideMap.get(tool.slug)}
+        />
+      ))
+    }
+
+    {
+      hasExtra && (
+        <div id={extraId} class="contents guide-extra-container" hidden>
+          {extra.map((tool) => (
+            <GuideCard
+              tool={tool}
+              hasGuide={guideMap.has(tool.slug)}
+              guideDescription={guideMap.get(tool.slug)}
+            />
+          ))}
+        </div>
+      )
+    }
+  </div>
+
+  {
+    hasExtra && (
+      <div class="flex justify-center">
+        <button
+          type="button"
+          class="guide-toggle-btn inline-flex items-center justify-center px-6 py-2.5 rounded-lg border border-border bg-surface hover:bg-surface-subtle text-text-primary text-sm font-semibold transition-colors duration-200 cursor-pointer min-h-11 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          aria-expanded="false"
+          aria-controls={extraId}
+          data-label-collapsed={collapsedLabel}
+          data-label-expanded={expandedLabel}
+        >
+          {collapsedLabel}
+        </button>
+      </div>
+    )
+  }
+</section>
