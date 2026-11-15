@@ -11,8 +11,7 @@ interface ToolCardProps {
   /** Even = filled, odd = outlined */
   index?: number;
   headingLevel?: "h2" | "h3";
-  rounded?: "sm" | "md" | "2xl";
-  dataCollapsed?: boolean;
+  className?: string;
 }
 
 export default function ToolCard({
@@ -23,8 +22,7 @@ export default function ToolCard({
   catId,
   index = 0,
   headingLevel = "h3",
-  rounded = "sm",
-  dataCollapsed,
+  className,
 }: ToolCardProps) {
   const isFilledIcon = index % 2 === 0;
 
@@ -36,14 +34,13 @@ export default function ToolCard({
 
   return (
     <article
-      class="group h-full"
+      class={`group h-full ${className ?? ""}`}
       data-category={catId}
       data-name={`${title} ${shortDescription}`}
-      data-collapsed={dataCollapsed ? "true" : undefined}
     >
       <a
         href={`/tools/${slug}`}
-        class={`flex flex-col p-5 sm:p-6 rounded-${rounded} bg-surface border border-border hover:border-border-hover transition-colors duration-200 min-h-44 h-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`}
+        class="flex flex-col p-5 sm:p-6 rounded-sm bg-surface border border-border hover:border-border-hover transition-colors duration-200 min-h-44 h-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {/* Icon Badge */}
         <div class="mb-4">

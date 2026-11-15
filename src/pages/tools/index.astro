@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ToolsDirectory from "../../components/directory/ToolsDirectory";
+
+const siteUrl = Astro.site
+  ? Astro.site.href.replace(/\/$/, "")
+  : "https://ahaad.tools";
+const canonicalURL = new URL("/tools", siteUrl).href;
+
+const pageTitle = "جميع الأدوات | أحآد";
+const pageDescription =
+  "تصفّح كل أدوات أحآد في مكان واحد، مرتبة حسب الفئة. أدوات ويب عربية مجانية وسريعة للصور والنصوص والحسابات والمهام اليومية.";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL}
+  ogType="website"
+>
+  <main id="main-content" class="w-full bg-canvas min-h-svh py-8 sm:py-12">
+    <div class="max-w-285 mx-auto px-4 sm:px-8 flex flex-col gap-8">
+      <header class="flex flex-col gap-3 items-center">
+        <h1
+          class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight"
+        >
+          جميع الأدوات
+        </h1>
+        <p
+          class="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl"
+        >
+          تصفّح كل أدوات أحآد في مكان واحد، مرتبة حسب الفئة.
+        </p>
+      </header>
+      <ToolsDirectory client:load />
+    </div>
+  </main>
+</Layout>
